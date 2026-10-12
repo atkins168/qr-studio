@@ -27,6 +27,9 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 .theme-toggle{position:absolute;top:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px;display:flex;gap:2px}
 .theme-toggle button{width:32px;height:32px;border:none;border-radius:50%;background:transparent;cursor:pointer;font-size:1rem;color:var(--text3);transition:all .2s;display:flex;align-items:center;justify-content:center}
 .theme-toggle button.on{background:var(--accent);color:#fff}
+.lang-toggle{position:absolute;top:0;left:0;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px;display:flex;gap:2px}
+.lang-toggle button{border:none;border-radius:16px;background:transparent;cursor:pointer;font-size:.72rem;font-weight:600;color:var(--text3);transition:all .2s;display:flex;align-items:center;justify-content:center;padding:6px 12px;font-family:inherit}
+.lang-toggle button.on{background:var(--accent);color:#fff}
 .mode-bar{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px}
 .mode-btn{flex:1;padding:11px 16px;text-align:center;font-weight:500;font-size:.85rem;cursor:pointer;border:none;background:transparent;color:var(--text2);transition:all .2s}
 .mode-btn.on{color:#fff;background:var(--accent)}
@@ -145,97 +148,101 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <button onclick="setTheme('light')" id="theme-light">☀️</button>
       <button class="on" onclick="setTheme('dark')" id="theme-dark">🌙</button>
     </div>
+    <div class="lang-toggle">
+      <button class="on" onclick="setLang('en')" id="lang-en">EN</button>
+      <button onclick="setLang('zh-CN')" id="lang-zh-CN">中文</button>
+    </div>
     <h1>QR <span>Studio</span></h1>
-    <p>Standard & branded QR codes, zero bloat</p>
+    <p data-i18n="hdr.tagline">Standard & branded QR codes, zero bloat</p>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn on" data-mode="standard" onclick="setMode('standard')">Standard<span class="sub">Classic QR codes</span></button>
-    <button class="mode-btn" data-mode="chroma" onclick="setMode('chroma')">ChromaCode<span class="sub">Image-blended mosaic</span></button>
-    <button class="mode-btn" data-mode="scanner" onclick="setMode('scanner')">Scanner<span class="sub">Read & decode QR</span></button>
+    <button class="mode-btn on" data-mode="standard" onclick="setMode('standard')"><span data-i18n="mode.standard">Standard</span><span class="sub" data-i18n="mode.standardSub">Classic QR codes</span></button>
+    <button class="mode-btn" data-mode="chroma" onclick="setMode('chroma')"><span data-i18n="mode.chroma">ChromaCode</span><span class="sub" data-i18n="mode.chromaSub">Image-blended mosaic</span></button>
+    <button class="mode-btn" data-mode="scanner" onclick="setMode('scanner')"><span data-i18n="mode.scanner">Scanner</span><span class="sub" data-i18n="mode.scannerSub">Read & decode QR</span></button>
   </div>
 
   <!-- ══════ STANDARD ══════ -->
   <div class="sec on" id="sec-standard">
     <div class="type-pills" id="type-pills">
-      <div class="pill on" data-type="url">URL</div><div class="pill" data-type="text">Text</div><div class="pill" data-type="wifi">WiFi</div><div class="pill" data-type="email">Email</div><div class="pill" data-type="phone">Phone</div><div class="pill" data-type="sms">SMS</div><div class="pill" data-type="whatsapp">WhatsApp</div><div class="pill" data-type="location">Location</div><div class="pill" data-type="calendar">Calendar</div><div class="pill" data-type="vcard">vCard</div><div class="pill" data-type="duitnow" style="background:linear-gradient(135deg,#ED2E67,#c4235a);color:#fff;border-color:#ED2E67">🇲🇾 DuitNow</div>
+      <div class="pill on" data-type="url" data-i18n="type.url">URL</div><div class="pill" data-type="text" data-i18n="type.text">Text</div><div class="pill" data-type="wifi" data-i18n="type.wifi">WiFi</div><div class="pill" data-type="email" data-i18n="type.email">Email</div><div class="pill" data-type="phone" data-i18n="type.phone">Phone</div><div class="pill" data-type="sms" data-i18n="type.sms">SMS</div><div class="pill" data-type="whatsapp" data-i18n="type.whatsapp">WhatsApp</div><div class="pill" data-type="location" data-i18n="type.location">Location</div><div class="pill" data-type="calendar" data-i18n="type.calendar">Calendar</div><div class="pill" data-type="vcard" data-i18n="type.vcard">vCard</div><div class="pill" data-type="duitnow" style="background:linear-gradient(135deg,#ED2E67,#c4235a);color:#fff;border-color:#ED2E67" data-i18n="type.duitnow">🇲🇾 DuitNow</div>
     </div>
     <div class="card">
       <div class="dp on" id="dp-url"><div class="field"><input class="inp" id="in-url" placeholder="https://example.com" spellcheck="false"><div class="val-msg" id="v-url"></div></div></div>
-      <div class="dp" id="dp-text"><div class="field"><textarea class="inp" id="in-text" placeholder="Enter any text or message…"></textarea></div></div>
+      <div class="dp" id="dp-text"><div class="field"><textarea class="inp" id="in-text" data-i18n-ph="ph.textAny" placeholder="Enter any text or message…"></textarea></div></div>
       <div class="dp" id="dp-wifi">
-        <div class="field"><label>Network name (SSID)</label><input class="inp" id="wifi-ssid" placeholder="MyWiFi"><div class="val-msg" id="v-wifi-ssid"></div></div>
-        <div class="field"><label>Password</label><div style="position:relative"><input class="inp" id="wifi-pass" type="password" placeholder="Min 8 characters" style="padding-right:42px"><button type="button" id="wifi-eye" onclick="toggleWifiEye()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:1.1rem;padding:4px;line-height:1">👁️‍🗨️</button></div><div class="val-msg" id="v-wifi-pass"></div></div>
-        <div class="row r2"><div class="field"><label>Encryption</label><select class="inp" id="wifi-enc"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="">None</option></select></div><div class="field" style="display:flex;align-items:flex-end;padding-bottom:2px"><label class="chk"><input type="checkbox" id="wifi-hidden"> Hidden network</label></div></div>
-        <hr class="sep"><div class="card-title">Display below QR code</div>
-        <div class="row r3"><div class="field"><label class="chk"><input type="checkbox" id="wifi-show-ssid" checked> Show SSID</label></div><div class="field"><label class="chk"><input type="checkbox" id="wifi-show-pass"> Show Password</label></div><div class="field"><label class="chk"><input type="checkbox" id="wifi-show-enc"> Show Encryption</label></div></div>
+        <div class="field"><label data-i18n="f.wifiSsid">Network name (SSID)</label><input class="inp" id="wifi-ssid" data-i18n-ph="ph.wifiSsid" placeholder="MyWiFi"><div class="val-msg" id="v-wifi-ssid"></div></div>
+        <div class="field"><label data-i18n="f.wifiPass">Password</label><div style="position:relative"><input class="inp" id="wifi-pass" type="password" data-i18n-ph="ph.wifiPass" placeholder="Min 8 characters" style="padding-right:42px"><button type="button" id="wifi-eye" onclick="toggleWifiEye()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:1.1rem;padding:4px;line-height:1">👁️‍🗨️</button></div><div class="val-msg" id="v-wifi-pass"></div></div>
+        <div class="row r2"><div class="field"><label data-i18n="f.wifiEnc">Encryption</label><select class="inp" id="wifi-enc"><option value="WPA" data-i18n="opt.wpa">WPA/WPA2</option><option value="WEP" data-i18n="opt.wep">WEP</option><option value="" data-i18n="opt.none">None</option></select></div><div class="field" style="display:flex;align-items:flex-end;padding-bottom:2px"><label class="chk"><input type="checkbox" id="wifi-hidden"><span data-i18n="f.wifiHidden"> Hidden network</span></label></div></div>
+        <hr class="sep"><div class="card-title" data-i18n="f.wifiDisplay">Display below QR code</div>
+        <div class="row r3"><div class="field"><label class="chk"><input type="checkbox" id="wifi-show-ssid" checked><span data-i18n="f.wifiShowSsid"> Show SSID</span></label></div><div class="field"><label class="chk"><input type="checkbox" id="wifi-show-pass"><span data-i18n="f.wifiShowPass"> Show Password</span></label></div><div class="field"><label class="chk"><input type="checkbox" id="wifi-show-enc"><span data-i18n="f.wifiShowEnc"> Show Encryption</span></label></div></div>
       </div>
-      <div class="dp" id="dp-email"><div class="field"><label>Email address</label><input class="inp" id="em-to" placeholder="hello@example.com"><div class="val-msg" id="v-em-to"></div></div><div class="field"><label>Subject</label><input class="inp" id="em-sub" placeholder="Subject line"></div><div class="field"><label>Body</label><textarea class="inp" id="em-body" placeholder="Email body…"></textarea></div></div>
-      <div class="dp" id="dp-phone"><div class="field"><label>Phone number</label><div class="phone-row"><select class="inp" id="ph-cc"></select><input class="inp" id="in-phone" placeholder="555 123 4567"></div><div class="val-msg" id="v-phone"></div></div></div>
-      <div class="dp" id="dp-sms"><div class="field"><label>Phone number</label><div class="phone-row"><select class="inp" id="sms-cc"></select><input class="inp" id="sms-phone" placeholder="555 123 4567"></div><div class="val-msg" id="v-sms-phone"></div></div><div class="field"><label>Message (optional)</label><textarea class="inp" id="sms-msg" placeholder="Pre-filled SMS text…"></textarea></div></div>
-      <div class="dp" id="dp-whatsapp"><div class="field"><label>Phone number</label><div class="phone-row"><select class="inp" id="wa-cc"></select><input class="inp" id="wa-phone" placeholder="5551234567"></div><div class="val-msg" id="v-wa-phone"></div></div><div class="field"><label>Pre-filled message (optional)</label><textarea class="inp" id="wa-msg" placeholder="Hi! I saw your site…"></textarea></div></div>
-      <div class="dp" id="dp-location"><div class="field"><label>Location name or address</label><input class="inp" id="loc-name" placeholder="Eiffel Tower, Paris"><div class="val-msg" id="v-loc"></div></div><div class="row r2"><div class="field"><label>Latitude</label><input class="inp" id="loc-lat" placeholder="48.8584"></div><div class="field"><label>Longitude</label><input class="inp" id="loc-lng" placeholder="2.2945"></div></div></div>
-      <div class="dp" id="dp-calendar"><div class="field"><label>Event title</label><input class="inp" id="cal-title" placeholder="Team Meeting"><div class="val-msg" id="v-cal-title"></div></div><div class="field"><label>Description</label><textarea class="inp" id="cal-desc" placeholder="Agenda…"></textarea></div><div class="field"><label>Location</label><input class="inp" id="cal-loc" placeholder="Conference Room A"></div><div class="row r2"><div class="field"><label>Start date</label><input class="inp" type="date" id="cal-sd"><div class="val-msg" id="v-cal-sd"></div></div><div class="field"><label>Start time</label><input class="inp" type="time" id="cal-st"></div></div><div class="row r2"><div class="field"><label>End date</label><input class="inp" type="date" id="cal-ed"></div><div class="field"><label>End time</label><input class="inp" type="time" id="cal-et"></div></div><div class="field"><label class="chk"><input type="checkbox" id="cal-allday"> All-day event</label></div></div>
-      <div class="dp" id="dp-vcard"><div class="row r2"><div class="field"><label>First name</label><input class="inp" id="vc-fn" placeholder="Jane"></div><div class="field"><label>Last name</label><input class="inp" id="vc-ln" placeholder="Smith"></div></div><div class="val-msg" id="v-vc-name"></div><div class="field"><label>Phone</label><div class="phone-row"><select class="inp" id="vc-cc"></select><input class="inp" id="vc-phone" placeholder="555 123 4567"></div></div><div class="field"><label>Email</label><input class="inp" id="vc-email" placeholder="jane@example.com"><div class="val-msg" id="v-vc-email"></div></div><div class="field"><label>Organization</label><input class="inp" id="vc-org" placeholder="Acme Inc."></div><div class="field"><label>Website</label><input class="inp" id="vc-url" placeholder="https://example.com"><div class="val-msg" id="v-vc-url"></div></div></div>
+      <div class="dp" id="dp-email"><div class="field"><label data-i18n="f.emTo">Email address</label><input class="inp" id="em-to" placeholder="hello@example.com"><div class="val-msg" id="v-em-to"></div></div><div class="field"><label data-i18n="f.emSub">Subject</label><input class="inp" id="em-sub" data-i18n-ph="ph.emSub" placeholder="Subject line"></div><div class="field"><label data-i18n="f.emBody">Body</label><textarea class="inp" id="em-body" data-i18n-ph="ph.emBody" placeholder="Email body…"></textarea></div></div>
+      <div class="dp" id="dp-phone"><div class="field"><label data-i18n="f.phone">Phone number</label><div class="phone-row"><select class="inp" id="ph-cc"></select><input class="inp" id="in-phone" data-i18n-ph="ph.phone" placeholder="555 123 4567"></div><div class="val-msg" id="v-phone"></div></div></div>
+      <div class="dp" id="dp-sms"><div class="field"><label data-i18n="f.phone">Phone number</label><div class="phone-row"><select class="inp" id="sms-cc"></select><input class="inp" id="sms-phone" data-i18n-ph="ph.phone" placeholder="555 123 4567"></div><div class="val-msg" id="v-sms-phone"></div></div><div class="field"><label data-i18n="f.smsMsg">Message (optional)</label><textarea class="inp" id="sms-msg" data-i18n-ph="ph.smsMsg" placeholder="Pre-filled SMS text…"></textarea></div></div>
+      <div class="dp" id="dp-whatsapp"><div class="field"><label data-i18n="f.phone">Phone number</label><div class="phone-row"><select class="inp" id="wa-cc"></select><input class="inp" id="wa-phone" data-i18n-ph="ph.phone" placeholder="5551234567"></div><div class="val-msg" id="v-wa-phone"></div></div><div class="field"><label data-i18n="f.waMsg">Pre-filled message (optional)</label><textarea class="inp" id="wa-msg" data-i18n-ph="ph.waMsg" placeholder="Hi! I saw your site…"></textarea></div></div>
+      <div class="dp" id="dp-location"><div class="field"><label data-i18n="f.locName">Location name or address</label><input class="inp" id="loc-name" data-i18n-ph="ph.locName" placeholder="Eiffel Tower, Paris"><div class="val-msg" id="v-loc"></div></div><div class="row r2"><div class="field"><label data-i18n="f.lat">Latitude</label><input class="inp" id="loc-lat" placeholder="48.8584"></div><div class="field"><label data-i18n="f.lng">Longitude</label><input class="inp" id="loc-lng" placeholder="2.2945"></div></div></div>
+      <div class="dp" id="dp-calendar"><div class="field"><label data-i18n="f.calTitle">Event title</label><input class="inp" id="cal-title" data-i18n-ph="ph.calTitle" placeholder="Team Meeting"><div class="val-msg" id="v-cal-title"></div></div><div class="field"><label data-i18n="f.calDesc">Description</label><textarea class="inp" id="cal-desc" data-i18n-ph="ph.calDesc" placeholder="Agenda…"></textarea></div><div class="field"><label data-i18n="f.calLoc">Location</label><input class="inp" id="cal-loc" data-i18n-ph="ph.calLoc" placeholder="Conference Room A"></div><div class="row r2"><div class="field"><label data-i18n="f.calSd">Start date</label><input class="inp" type="date" id="cal-sd"><div class="val-msg" id="v-cal-sd"></div></div><div class="field"><label data-i18n="f.calSt">Start time</label><input class="inp" type="time" id="cal-st"></div></div><div class="row r2"><div class="field"><label data-i18n="f.calEd">End date</label><input class="inp" type="date" id="cal-ed"></div><div class="field"><label data-i18n="f.calEt">End time</label><input class="inp" type="time" id="cal-et"></div></div><div class="field"><label class="chk"><input type="checkbox" id="cal-allday"><span data-i18n="f.calAllday"> All-day event</span></label></div></div>
+      <div class="dp" id="dp-vcard"><div class="row r2"><div class="field"><label data-i18n="f.vcFn">First name</label><input class="inp" id="vc-fn" data-i18n-ph="ph.vcFn" placeholder="Jane"></div><div class="field"><label data-i18n="f.vcLn">Last name</label><input class="inp" id="vc-ln" data-i18n-ph="ph.vcLn" placeholder="Smith"></div></div><div class="val-msg" id="v-vc-name"></div><div class="field"><label data-i18n="f.vcPhone">Phone</label><div class="phone-row"><select class="inp" id="vc-cc"></select><input class="inp" id="vc-phone" data-i18n-ph="ph.phone" placeholder="555 123 4567"></div></div><div class="field"><label data-i18n="f.vcEmail">Email</label><input class="inp" id="vc-email" placeholder="jane@example.com"><div class="val-msg" id="v-vc-email"></div></div><div class="field"><label data-i18n="f.vcOrg">Organization</label><input class="inp" id="vc-org" data-i18n-ph="ph.vcOrg" placeholder="Acme Inc."></div><div class="field"><label data-i18n="f.vcUrl">Website</label><input class="inp" id="vc-url" placeholder="https://example.com"><div class="val-msg" id="v-vc-url"></div></div></div>
       <div class="dp" id="dp-duitnow">
         <div style="font-size:.78rem;color:var(--text2);margin-bottom:14px;line-height:1.55;padding:10px 14px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border)">
-          <span style="color:#ED2E67;font-weight:600">🇲🇾 DuitNow QR Generator</span> — Builds structurally valid EMV QR strings per <a href="https://docs.developer.paynet.my/docs/duitNow-QR/integration/QR-generation-specification/merchant-presented-mode/qr-data-object" target="_blank" style="color:var(--accent);text-decoration:none">PayNet QR Spec v1.5</a>.
-          <div style="margin-top:8px;padding:8px 12px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:8px;font-size:.72rem;color:var(--warn)">
+          <span style="color:#ED2E67;font-weight:600" data-i18n="dn.genTitle">🇲🇾 DuitNow QR Generator</span><span data-i18n-html="dn.introHtml"> — Builds structurally valid EMV QR strings per <a href="https://docs.developer.paynet.my/docs/duitNow-QR/integration/QR-generation-specification/merchant-presented-mode/qr-data-object" target="_blank" style="color:var(--accent);text-decoration:none">PayNet QR Spec v1.5</a>.</span>
+          <div style="margin-top:8px;padding:8px 12px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:8px;font-size:.72rem;color:var(--warn)" data-i18n-html="dn.warnHtml">
             <strong>⚠ This won't process real payments.</strong> The Merchant/QR ID must be a real ID registered with an acquirer bank through PayNet. Generated QR codes have correct format & CRC but are not recognized by the payment network. Useful for developers testing EMV parsers or learning how DuitNow QR is structured. See <a href="https://github.com/natsu90/emvqr/issues/1" target="_blank" style="color:var(--warn);text-decoration:underline">natsu90's research</a>.
           </div>
         </div>
-        <div class="field"><label>QR Type</label>
-          <div style="display:flex;gap:6px"><button class="pill on dn-gen-type" data-v="11" onclick="setDnGenType('11')">Static (reusable)</button><button class="pill dn-gen-type" data-v="12" onclick="setDnGenType('12')">Dynamic (one-time)</button></div>
+        <div class="field"><label data-i18n="dn.qrType">QR Type</label>
+          <div style="display:flex;gap:6px"><button class="pill on dn-gen-type" data-v="11" onclick="setDnGenType('11')" data-i18n="dn.genStatic">Static (reusable)</button><button class="pill dn-gen-type" data-v="12" onclick="setDnGenType('12')" data-i18n="dn.genDynamic">Dynamic (one-time)</button></div>
         </div>
-        <div class="field"><label>Acquirer / Bank <span style="color:#ED2E67">*</span></label>
+        <div class="field"><label><span data-i18n="dn.acquirer">Acquirer / Bank</span> <span style="color:#ED2E67">*</span></label>
           <select class="inp" id="dn-gen-acquirer">
-            <option value="">— Select acquirer —</option>
+            <option value="" data-i18n="dn.acquirerPh">— Select acquirer —</option>
             <option value="629295">AEON Bank (629295)</option><option value="501664">Affin Bank (501664)</option><option value="432134">Al Rajhi Bank (432134)</option><option value="504374">Alliance Bank (504374)</option><option value="564169">AmBank (564169)</option><option value="890293">Ampersand Pay (890293)</option><option value="890061">Axiata Digital / Boost (890061)</option><option value="603346">Bank Islam (603346)</option><option value="589267">Bank Rakyat (589267)</option><option value="564167">Bank Muamalat (564167)</option><option value="629188">Bank of America (629188)</option><option value="629152">Bank of China (629152)</option><option value="589373">Agrobank (589373)</option><option value="420709">BSN (420709)</option><option value="890236">Beez Fintech (890236)</option><option value="890012">BigPay (890012)</option><option value="629204">BNP Paribas (629204)</option><option value="629303">Boost Bank (629303)</option><option value="890244">Boost Connect (890244)</option><option value="629261">China Construction Bank (629261)</option><option value="501854">CIMB Bank (501854)</option><option value="589170">Citibank (589170)</option><option value="890160">Curlec (890160)</option><option value="629246">Deutsche Bank (629246)</option><option value="890145">Fass Payment (890145)</option><option value="890020">Fave (890020)</option><option value="890038">Finexus (890038)</option><option value="890103">GHL (890103)</option><option value="890186">Global Payments (890186)</option><option value="890046">GrabPay (890046)</option><option value="629279">GX Bank (629279)</option><option value="588830">Hong Leong Bank (588830)</option><option value="589836">HSBC (589836)</option><option value="629253">ICBC (629253)</option><option value="890178">Instapay (890178)</option><option value="890079">iPay88 (890079)</option><option value="629212">JP Morgan Chase (629212)</option><option value="629311">KAF Investment Bank (629311)</option><option value="890152">KiplePay (890152)</option><option value="890228">Co-opbank Pertama (890228)</option><option value="639406">Kuwait Finance House (639406)</option><option value="588734">Maybank (588734)</option><option value="890301">ManagePay (890301)</option><option value="432310">MBSB Bank (432310)</option><option value="890111">Merchantrade (890111)</option><option value="629220">Mizuho Bank (629220)</option><option value="890210">MobilityOne (890210)</option><option value="890277">Mobiedge (890277)</option><option value="890327">MRuncit (890327)</option><option value="629196">MUFG Bank (629196)</option><option value="504324">OCBC Bank (504324)</option><option value="890269">Paydibs (890269)</option><option value="890194">Payex (890194)</option><option value="564162">Public Bank (564162)</option><option value="890087">Razer Merchant Services (890087)</option><option value="890095">Revenue Solution (890095)</option><option value="564160">RHB Bank (564160)</option><option value="890129">Setel (890129)</option><option value="890004">ShopeePay (890004)</option><option value="890202">SiliconNet / SPayGlobal (890202)</option><option value="539981">Standard Chartered (539981)</option><option value="890137">Stripe (890137)</option><option value="629238">Sumitomo Mitsui (629238)</option><option value="890053">Touch 'n Go eWallet (890053)</option><option value="890251">UniPin (890251)</option><option value="519469">UOB (519469)</option><option value="890319">Wannapay (890319)</option><option value="629287">YTL Digital Bank (629287)</option><option value="890285">2C2P (890285)</option><option value="898989">JomPAY (898989)</option>
           </select><div class="val-msg" id="v-dn-acquirer"></div>
         </div>
-        <div class="field"><label>Merchant / QR ID <span style="color:#ED2E67">*</span></label><input class="inp" id="dn-gen-qrid" placeholder="e.g. 123456789 (up to 28 chars)" maxlength="28"><div class="val-msg" id="v-dn-qrid"></div></div>
-        <div class="field"><label>Merchant Name <span style="color:#ED2E67">*</span></label><input class="inp" id="dn-gen-name" placeholder="e.g. KEDAI KOPI ALI (up to 25 chars)" maxlength="25"><div class="val-msg" id="v-dn-name"></div></div>
+        <div class="field"><label><span data-i18n="dn.qrid">Merchant / QR ID</span> <span style="color:#ED2E67">*</span></label><input class="inp" id="dn-gen-qrid" data-i18n-ph="ph.dnQrid" placeholder="e.g. 123456789 (up to 28 chars)" maxlength="28"><div class="val-msg" id="v-dn-qrid"></div></div>
+        <div class="field"><label><span data-i18n="dn.name">Merchant Name</span> <span style="color:#ED2E67">*</span></label><input class="inp" id="dn-gen-name" data-i18n-ph="ph.dnName" placeholder="e.g. KEDAI KOPI ALI (up to 25 chars)" maxlength="25"><div class="val-msg" id="v-dn-name"></div></div>
         <div class="row r2">
-          <div class="field"><label>City <span style="color:#ED2E67">*</span></label><input class="inp" id="dn-gen-city" placeholder="e.g. KUALA LUMPUR" maxlength="15" value="MY"><div class="val-msg" id="v-dn-city"></div></div>
-          <div class="field"><label>Postal Code</label><input class="inp" id="dn-gen-postal" placeholder="e.g. 59200" maxlength="5"></div>
+          <div class="field"><label><span data-i18n="dn.city">City</span> <span style="color:#ED2E67">*</span></label><input class="inp" id="dn-gen-city" data-i18n-ph="ph.dnCity" placeholder="e.g. KUALA LUMPUR" maxlength="15" value="MY"><div class="val-msg" id="v-dn-city"></div></div>
+          <div class="field"><label data-i18n="dn.postal">Postal Code</label><input class="inp" id="dn-gen-postal" data-i18n-ph="ph.dnPostal" placeholder="e.g. 59200" maxlength="5"></div>
         </div>
         <div class="row r2">
-          <div class="field"><label>Category (MCC)</label>
+          <div class="field"><label data-i18n="dn.mcc">Category (MCC)</label>
             <select class="inp" id="dn-gen-mcc">
               <option value="0000">0000 — P2P Transfer</option><option value="4111">4111 — Transport</option><option value="4511">4511 — Airlines</option><option value="4812">4812 — Telecom</option><option value="5311">5311 — Department Store</option><option value="5411" selected>5411 — Grocery</option><option value="5462">5462 — Bakery</option><option value="5499">5499 — Food Store</option><option value="5541">5541 — Fuel/Petrol</option><option value="5812">5812 — Restaurant/Cafe</option><option value="5814">5814 — Fast Food</option><option value="5912">5912 — Pharmacy</option><option value="5999">5999 — Retail (General)</option><option value="6010">6010 — POS Cash Out</option><option value="6012">6012 — Banking</option><option value="7011">7011 — Hotel</option><option value="7230">7230 — Beauty/Barber</option><option value="7299">7299 — Services</option><option value="7832">7832 — Cinema</option><option value="8011">8011 — Medical</option><option value="8021">8021 — Dental</option><option value="8099">8099 — Health Services</option><option value="8211">8211 — School</option><option value="8220">8220 — University</option><option value="9999">9999 — Government</option><option value="1111">1111 — Bill Payment</option>
             </select>
           </div>
-          <div class="field"><label>Amount (optional)</label><input class="inp" id="dn-gen-amount" placeholder="e.g. 10.00" type="number" step="0.01" min="0"><div class="val-msg" id="v-dn-amount"></div></div>
+          <div class="field"><label data-i18n="dn.amount">Amount (optional)</label><input class="inp" id="dn-gen-amount" data-i18n-ph="ph.dnAmount" placeholder="e.g. 10.00" type="number" step="0.01" min="0"><div class="val-msg" id="v-dn-amount"></div></div>
         </div>
         <hr class="sep">
-        <div style="margin-bottom:10px"><button class="pill" style="font-size:.7rem" onclick="document.getElementById('dn-gen-addl').style.display=document.getElementById('dn-gen-addl').style.display==='none'?'block':'none'">⚙ Additional Data (optional)</button></div>
+        <div style="margin-bottom:10px"><button class="pill" style="font-size:.7rem" data-i18n="dn.adv" onclick="document.getElementById('dn-gen-addl').style.display=document.getElementById('dn-gen-addl').style.display==='none'?'block':'none'">⚙ Additional Data (optional)</button></div>
         <div id="dn-gen-addl" style="display:none">
           <div class="row r2">
-            <div class="field"><label>Reference Label</label><input class="inp" id="dn-gen-ref" placeholder="Reference" maxlength="25"></div>
-            <div class="field"><label>Terminal Label</label><input class="inp" id="dn-gen-terminal" placeholder="Terminal ID" maxlength="25"></div>
+            <div class="field"><label data-i18n="dn.ref">Reference Label</label><input class="inp" id="dn-gen-ref" data-i18n-ph="ph.dnRef" placeholder="Reference" maxlength="25"></div>
+            <div class="field"><label data-i18n="dn.terminal">Terminal Label</label><input class="inp" id="dn-gen-terminal" data-i18n-ph="ph.dnTerminal" placeholder="Terminal ID" maxlength="25"></div>
           </div>
           <div class="row r2">
-            <div class="field"><label>Bill Number</label><input class="inp" id="dn-gen-bill" placeholder="Invoice #" maxlength="25"></div>
-            <div class="field"><label>Store Label</label><input class="inp" id="dn-gen-store" placeholder="Store #" maxlength="25"></div>
+            <div class="field"><label data-i18n="dn.bill">Bill Number</label><input class="inp" id="dn-gen-bill" data-i18n-ph="ph.dnBill" placeholder="Invoice #" maxlength="25"></div>
+            <div class="field"><label data-i18n="dn.store">Store Label</label><input class="inp" id="dn-gen-store" data-i18n-ph="ph.dnStore" placeholder="Store #" maxlength="25"></div>
           </div>
         </div>
       </div>
     </div>
-    <div class="link-box" id="std-link-box"><div class="link-label">Encoded data</div><div class="link-val" id="std-link-val"></div><button class="copy-btn" onclick="copyLink()">Copy</button></div>
+    <div class="link-box" id="std-link-box"><div class="link-label" data-i18n="link.encoded">Encoded data</div><div class="link-val" id="std-link-val"></div><button class="copy-btn" onclick="copyLink()" data-i18n="link.copy">Copy</button></div>
     <div class="card">
-      <div class="card-title">Style & Colors</div>
+      <div class="card-title" data-i18n="style.title">Style & Colors</div>
       <div class="row r3">
-        <div class="field"><label>QR color</label><input type="color" class="inp" id="std-fg" value="#000000"></div>
-        <div class="field"><label>Background</label><input type="color" class="inp" id="std-bg" value="#ffffff"></div>
-        <div class="field"><label><span class="tip">Error correction <span class="tip-icon">?</span><span class="tip-text"><strong>Higher = more reliable.</strong> Your QR stores backup data so it scans even if damaged.<br><br><strong>L (7%)</strong> — Smallest QR, least protection.<br><strong>M (15%)</strong> — Good default.<br><strong>Q (25%)</strong> — Recommended with logos.<br><strong>H (30%)</strong> — Maximum recovery, densest code.</span></span></label><select class="inp" id="std-ecc"><option value="L">Low (7%)</option><option value="M" selected>Medium (15%)</option><option value="Q">Quartile (25%)</option><option value="H">High (30%)</option></select></div>
+        <div class="field"><label data-i18n="style.fg">QR color</label><input type="color" class="inp" id="std-fg" value="#000000"></div>
+        <div class="field"><label data-i18n="style.bg">Background</label><input type="color" class="inp" id="std-bg" value="#ffffff"></div>
+        <div class="field"><label><span class="tip"><span data-i18n="style.ecc">Error correction</span> <span class="tip-icon">?</span><span class="tip-text" data-i18n-html="style.eccTip"><strong>Higher = more reliable.</strong> Your QR stores backup data so it scans even if damaged.<br><br><strong>L (7%)</strong> — Smallest QR, least protection.<br><strong>M (15%)</strong> — Good default.<br><strong>Q (25%)</strong> — Recommended with logos.<br><strong>H (30%)</strong> — Maximum recovery, densest code.</span></span></label><select class="inp" id="std-ecc"><option value="L" data-i18n="opt.low">Low (7%)</option><option value="M" selected data-i18n="opt.medium">Medium (15%)</option><option value="Q" data-i18n="opt.quartile">Quartile (25%)</option><option value="H" data-i18n="opt.high">High (30%)</option></select></div>
       </div>
       <div class="presets" id="color-presets"><div class="preset" data-fg="#000000" data-bg="#ffffff" style="background:#fff"><div class="fg" style="background:#000"></div></div><div class="preset" data-fg="#ffffff" data-bg="#000000" style="background:#000"><div class="fg" style="background:#fff"></div></div><div class="preset" data-fg="#1a365d" data-bg="#e2e8f0" style="background:#e2e8f0"><div class="fg" style="background:#1a365d"></div></div><div class="preset" data-fg="#7c2d12" data-bg="#fef3c7" style="background:#fef3c7"><div class="fg" style="background:#7c2d12"></div></div><div class="preset" data-fg="#166534" data-bg="#dcfce7" style="background:#dcfce7"><div class="fg" style="background:#166534"></div></div><div class="preset" data-fg="#7e22ce" data-bg="#f3e8ff" style="background:#f3e8ff"><div class="fg" style="background:#7e22ce"></div></div><div class="preset" data-fg="#0369a1" data-bg="#e0f2fe" style="background:#e0f2fe"><div class="fg" style="background:#0369a1"></div></div></div>
-      <div class="contrast-warn" id="contrast-warn">⚠ Low contrast — may affect scanning</div>
+      <div class="contrast-warn" id="contrast-warn" data-i18n="style.lowContrast">⚠ Low contrast — may affect scanning</div>
       <hr class="sep">
-      <div class="row r3"><div class="field"><label>Resolution</label><select class="inp" id="std-res"><option value="256">256px</option><option value="512" selected>512px</option><option value="1024">1024px</option><option value="2048">2048px</option></select></div><div class="field"><label>Template</label><select class="inp" id="std-tmpl"><option value="classic">Classic</option><option value="christmas">🎄 Christmas</option><option value="halloween">🎃 Halloween</option><option value="newyear">🎆 New Year</option><option value="easter">🥚 Easter</option><option value="valentine">💝 Valentine</option><option value="stpatricks">☘️ St. Patrick's</option><option value="birthday">🎂 Birthday</option></select></div><div class="field"><label>Center logo</label><div class="dz" id="std-logo-dz" style="padding:8px;font-size:.74rem"><span id="std-logo-prompt">Tap to upload</span><input type="file" id="std-logo-fi" accept="image/*"></div></div></div>
-      <div id="std-logo-strip" class="logo-strip" style="display:none"><img id="std-logo-preview"><span class="remove" onclick="clearStdLogo()">✕ Remove</span></div>
+      <div class="row r3"><div class="field"><label data-i18n="style.res">Resolution</label><select class="inp" id="std-res"><option value="256">256px</option><option value="512" selected>512px</option><option value="1024">1024px</option><option value="2048">2048px</option></select></div><div class="field"><label data-i18n="style.tmpl">Template</label><select class="inp" id="std-tmpl"><option value="classic" data-i18n="tmpl.classic">Classic</option><option value="christmas" data-i18n="tmpl.christmas">🎄 Christmas</option><option value="halloween" data-i18n="tmpl.halloween">🎃 Halloween</option><option value="newyear" data-i18n="tmpl.newyear">🎆 New Year</option><option value="easter" data-i18n="tmpl.easter">🥚 Easter</option><option value="valentine" data-i18n="tmpl.valentine">💝 Valentine</option><option value="stpatricks" data-i18n="tmpl.stpatricks">☘️ St. Patrick's</option><option value="birthday" data-i18n="tmpl.birthday">🎂 Birthday</option></select></div><div class="field"><label data-i18n="style.logo">Center logo</label><div class="dz" id="std-logo-dz" style="padding:8px;font-size:.74rem"><span id="std-logo-prompt" data-i18n="style.tapUpload">Tap to upload</span><input type="file" id="std-logo-fi" accept="image/*"></div></div></div>
+      <div id="std-logo-strip" class="logo-strip" style="display:none"><img id="std-logo-preview"><span class="remove" onclick="clearStdLogo()" data-i18n="style.remove">✕ Remove</span></div>
       <hr class="sep">
-      <div class="field"><label>Stroke width — <span class="rv" id="stroke-val">0%</span></label><input type="range" id="std-stroke" min="0" max="13" value="0"></div>
-      <div class="row r2" style="margin-top:8px"><div class="field"><label class="chk"><input type="checkbox" id="std-outline"> Add outline</label></div><div class="field"><label class="chk"><input type="checkbox" id="std-invert"> Invert colors</label></div></div>
+      <div class="field"><label><span data-i18n="style.stroke">Stroke width — </span><span class="rv" id="stroke-val">0%</span></label><input type="range" id="std-stroke" min="0" max="13" value="0"></div>
+      <div class="row r2" style="margin-top:8px"><div class="field"><label class="chk"><input type="checkbox" id="std-outline"><span data-i18n="style.outline"> Add outline</span></label></div><div class="field"><label class="chk"><input type="checkbox" id="std-invert"><span data-i18n="style.invert"> Invert colors</span></label></div></div>
     </div>
     <div class="preview-area" id="std-preview-area">
       <div class="qr-tmpl-frame" id="std-frame"><canvas id="std-canvas"></canvas></div>
@@ -243,33 +250,33 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <div class="dl-row">
         <button class="dl-btn" onclick="dlStdPNG()"><svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG</button>
         <button class="dl-btn" onclick="dlStdSVG()"><svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>SVG</button>
-        <button class="dl-btn" onclick="shareStd()"><svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share</button>
+        <button class="dl-btn" onclick="shareStd()"><svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span data-i18n="btn.share">Share</span></button>
       </div>
     </div>
   </div>
 
   <!-- ══════ CHROMACODE ══════ -->
   <div class="sec" id="sec-chroma">
-    <div class="card"><div class="field"><label>URL to encode</label><input class="inp" id="cc-url" placeholder="https://example.com" spellcheck="false"><div class="val-msg" id="v-cc-url"></div></div></div>
+    <div class="card"><div class="field"><label data-i18n="cc.url">URL to encode</label><input class="inp" id="cc-url" placeholder="https://example.com" spellcheck="false"><div class="val-msg" id="v-cc-url"></div></div></div>
     <div class="card">
-      <div class="card-title">Brand Image</div>
-      <div class="src-tabs" id="cc-tabs"><div class="src-tab on" data-t="fav">Favicon</div><div class="src-tab" data-t="upl">Upload</div><div class="src-tab" data-t="iu">Image URL</div></div>
-      <div id="cc-t-fav" class="src-tb on"><p style="font-size:.78rem;color:var(--text3)">Auto-fetches the site's favicon from the URL above.</p></div>
-      <div id="cc-t-upl" class="src-tb"><div class="dz" id="cc-dz"><span id="cc-dp">Drop image or tap to browse</span><input type="file" id="cc-fi" accept="image/*"></div></div>
-      <div id="cc-t-iu" class="src-tb"><input class="inp" id="cc-iu" placeholder="https://example.com/logo.png" spellcheck="false"></div>
+      <div class="card-title" data-i18n="cc.brand">Brand Image</div>
+      <div class="src-tabs" id="cc-tabs"><div class="src-tab on" data-t="fav" data-i18n="cc.tabFav">Favicon</div><div class="src-tab" data-t="upl" data-i18n="cc.tabUpl">Upload</div><div class="src-tab" data-t="iu" data-i18n="cc.tabIu">Image URL</div></div>
+      <div id="cc-t-fav" class="src-tb on"><p style="font-size:.78rem;color:var(--text3)" data-i18n="cc.favHint">Auto-fetches the site's favicon from the URL above.</p></div>
+      <div id="cc-t-upl" class="src-tb"><div class="dz" id="cc-dz"><span id="cc-dp" data-i18n="cc.drop">Drop image or tap to browse</span><input type="file" id="cc-fi" accept="image/*"></div></div>
+      <div id="cc-t-iu" class="src-tb"><input class="inp" id="cc-iu" data-i18n-ph="ph.ccIu" placeholder="https://example.com/logo.png" spellcheck="false"></div>
     </div>
-    <div class="adv-toggle"><button onclick="document.getElementById('cc-adv').classList.toggle('open')">⚙ Advanced Settings</button></div>
+    <div class="adv-toggle"><button data-i18n="cc.adv" onclick="document.getElementById('cc-adv').classList.toggle('open')">⚙ Advanced Settings</button></div>
     <div id="cc-adv" class="adv-panel"><div class="card">
-      <div class="row r3"><div class="field"><label>Dot shape</label><select class="inp" id="cc-shp"><option value="circle">Circle</option><option value="rrect">Rounded</option><option value="sq">Square</option></select></div><div class="field"><label><span class="tip">Error correction <span class="tip-icon">?</span><span class="tip-text"><strong>Higher = more reliable.</strong> ChromaCode modifies dots heavily, so <strong>High</strong> is recommended.<br><br><strong>H (30%)</strong> — Best for ChromaCode.<br><strong>Q (25%)</strong> — OK for simple logos.<br><strong>M (15%)</strong> — Risky with blending.</span></span></label><select class="inp" id="cc-ecc"><option value="H" selected>High</option><option value="Q">Quartile</option><option value="M">Medium</option></select></div><div class="field"><label>Output size</label><select class="inp" id="cc-osz"><option value="800">800px</option><option value="1024" selected>1024px</option><option value="1600">1600px</option><option value="2048">2048px</option></select></div></div>
+      <div class="row r3"><div class="field"><label data-i18n="cc.dotShape">Dot shape</label><select class="inp" id="cc-shp"><option value="circle" data-i18n="opt.circle">Circle</option><option value="rrect" data-i18n="opt.rounded">Rounded</option><option value="sq" data-i18n="opt.square">Square</option></select></div><div class="field"><label><span class="tip"><span data-i18n="style.ecc">Error correction</span> <span class="tip-icon">?</span><span class="tip-text" data-i18n-html="cc.eccTip"><strong>Higher = more reliable.</strong> ChromaCode modifies dots heavily, so <strong>High</strong> is recommended.<br><br><strong>H (30%)</strong> — Best for ChromaCode.<br><strong>Q (25%)</strong> — OK for simple logos.<br><strong>M (15%)</strong> — Risky with blending.</span></span></label><select class="inp" id="cc-ecc"><option value="H" selected data-i18n="opt.highShort">High</option><option value="Q" data-i18n="opt.quartileShort">Quartile</option><option value="M" data-i18n="opt.mediumShort">Medium</option></select></div><div class="field"><label data-i18n="cc.outSize">Output size</label><select class="inp" id="cc-osz"><option value="800">800px</option><option value="1024" selected>1024px</option><option value="1600">1600px</option><option value="2048">2048px</option></select></div></div>
       <hr class="sep">
-      <div class="field"><label>Dark dot range</label><div class="row r2"><div class="range-row"><input type="range" id="cc-dmn" min="15" max="60" value="30"><span class="rv" id="cc-vdmn">30%</span></div><div class="range-row"><input type="range" id="cc-dmx" min="70" max="110" value="105"><span class="rv" id="cc-vdmx">105%</span></div></div></div>
-      <div class="field"><label>Ghost strength</label><div class="range-row"><input type="range" id="cc-gs" min="0" max="80" value="80"><span class="rv" id="cc-vgs">80%</span></div></div>
-      <div class="field"><label>Ghost threshold</label><div class="range-row"><input type="range" id="cc-gt" min="0" max="60" value="8"><span class="rv" id="cc-vgt">8%</span></div></div>
+      <div class="field"><label data-i18n="cc.darkRange">Dark dot range</label><div class="row r2"><div class="range-row"><input type="range" id="cc-dmn" min="15" max="60" value="30"><span class="rv" id="cc-vdmn">30%</span></div><div class="range-row"><input type="range" id="cc-dmx" min="70" max="110" value="105"><span class="rv" id="cc-vdmx">105%</span></div></div></div>
+      <div class="field"><label data-i18n="cc.ghostStr">Ghost strength</label><div class="range-row"><input type="range" id="cc-gs" min="0" max="80" value="80"><span class="rv" id="cc-vgs">80%</span></div></div>
+      <div class="field"><label data-i18n="cc.ghostThr">Ghost threshold</label><div class="range-row"><input type="range" id="cc-gt" min="0" max="60" value="8"><span class="rv" id="cc-vgt">8%</span></div></div>
       <hr class="sep">
-      <div class="row r2"><div class="field"><label>Background</label><input type="color" class="inp" id="cc-bgc" value="#ffffff"></div><div class="field"><label>Fallback dark</label><input type="color" class="inp" id="cc-fdc" value="#000000"></div></div>
-      <div class="field" style="margin-top:10px"><label class="chk"><input type="checkbox" id="cc-col" checked> Use image colors</label></div>
+      <div class="row r2"><div class="field"><label data-i18n="cc.bg">Background</label><input type="color" class="inp" id="cc-bgc" value="#ffffff"></div><div class="field"><label data-i18n="cc.fallback">Fallback dark</label><input type="color" class="inp" id="cc-fdc" value="#000000"></div></div>
+      <div class="field" style="margin-top:10px"><label class="chk"><input type="checkbox" id="cc-col" checked><span data-i18n="cc.useColors"> Use image colors</span></label></div>
     </div></div>
-    <button class="gen-btn" id="cc-gen-btn" onclick="generateChroma()">Generate ChromaCode</button>
+    <button class="gen-btn" id="cc-gen-btn" onclick="generateChroma()" data-i18n="cc.generate">Generate ChromaCode</button>
     <div id="cc-status" class="status"></div>
     <div class="preview-area" id="cc-preview-area">
       <div id="cc-srcinfo" class="src-info" style="display:none"><img id="cc-sth"><span id="cc-sn">—</span><div class="pal" id="cc-pal"></div></div>
@@ -285,66 +292,66 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <!-- ══════ SCANNER ══════ -->
   <div class="sec" id="sec-scanner">
     <div class="card">
-      <div class="card-title">Scan QR Code</div>
-      <p style="font-size:.82rem;color:var(--text2);margin-bottom:14px;line-height:1.6">Decode any QR code from your <strong>camera</strong>, an <strong>image file</strong>, or <strong>paste</strong> from clipboard. Everything is processed locally — nothing leaves your browser.<br><span style="color:var(--accent);font-weight:500">🇲🇾 Full DuitNow QR breakdown</span> — 70 acquirers/banks from PayNet's official registry, CRC verification, tip/fee parsing & clean QR regeneration.</p>
+      <div class="card-title" data-i18n="scan.title">Scan QR Code</div>
+      <p style="font-size:.82rem;color:var(--text2);margin-bottom:14px;line-height:1.6"><span data-i18n-html="scan.intro">Decode any QR code from your <strong>camera</strong>, an <strong>image file</strong>, or <strong>paste</strong> from clipboard. Everything is processed locally — nothing leaves your browser.</span><br><span style="color:var(--accent);font-weight:500" data-i18n="scan.dnIntro">🇲🇾 Full DuitNow QR breakdown — 70 acquirers/banks from PayNet's official registry, CRC verification, tip/fee parsing &amp; clean QR regeneration.</span></p>
       <div style="margin-bottom:14px">
-        <button class="gen-btn" id="cam-btn" onclick="toggleCamera()" style="margin-bottom:8px">📷 Open Camera</button>
+        <button class="gen-btn" id="cam-btn" onclick="toggleCamera()" style="margin-bottom:8px" data-i18n="scan.openCam">📷 Open Camera</button>
         <div id="cam-wrap" style="display:none;position:relative;max-width:440px;margin:0 auto;border-radius:var(--radius-lg);overflow:hidden;background:#000">
           <video id="cam-video" autoplay playsinline muted style="display:block;width:100%;border-radius:var(--radius-lg)"></video>
           <canvas id="cam-canvas" style="display:none"></canvas>
           <div style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:65%;height:65%;border:2px solid var(--accent);border-radius:12px;box-shadow:0 0 0 9999px rgba(0,0,0,.4)"></div></div>
-          <div id="cam-status" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;padding:6px 14px;border-radius:20px;font-size:.75rem;font-family:'JetBrains Mono',monospace">Scanning…</div>
+          <div id="cam-status" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;padding:6px 14px;border-radius:20px;font-size:.75rem;font-family:'JetBrains Mono',monospace" data-i18n="scan.scanning">Scanning…</div>
         </div>
-        <div style="font-size:.72rem;color:var(--text3);margin-top:6px;text-align:center">🔒 Camera access stays in your browser. We never record, store, or transmit video.</div>
+        <div style="font-size:.72rem;color:var(--text3);margin-top:6px;text-align:center" data-i18n="scan.camNote">🔒 Camera access stays in your browser. We never record, store, or transmit video.</div>
       </div>
       <hr class="sep">
-      <div class="dz" id="scan-dz" style="padding:28px 16px"><div style="font-size:1.4rem;margin-bottom:6px">📁</div><span id="scan-dp">Drop image, tap to browse, or paste (Ctrl+V)</span><input type="file" id="scan-fi" accept="image/*"></div>
+      <div class="dz" id="scan-dz" style="padding:28px 16px"><div style="font-size:1.4rem;margin-bottom:6px">📁</div><span id="scan-dp" data-i18n="scan.drop">Drop image, tap to browse, or paste (Ctrl+V)</span><input type="file" id="scan-fi" accept="image/*"></div>
       <canvas id="scan-canvas" style="display:none"></canvas>
     </div>
     <div id="scan-result" style="display:none">
       <div class="card" id="scan-safety-card"><div id="scan-safety"></div></div>
       <div class="card" id="duitnow-card" style="display:none">
-        <div class="card-title" style="color:var(--accent)">🇲🇾 DuitNow QR Breakdown</div>
+        <div class="card-title" style="color:var(--accent)" data-i18n="scan.dnTitle">🇲🇾 DuitNow QR Breakdown</div>
         <div id="duitnow-breakdown" style="font-size:.84rem;line-height:1.8"></div>
         <div id="duitnow-regen" style="display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-          <div class="card-title" style="color:var(--accent)">🔄 Regenerated QR</div>
-          <div class="field"><label>Merchant Name</label><input class="inp" id="dn-edit-name" oninput="regenDuitNow()" placeholder="Merchant name"></div>
-          <div class="field"><label>Bank / Wallet</label><input class="inp" id="dn-edit-bank" list="dn-bank-list" oninput="regenDuitNow()" placeholder="e.g. Maybank, CIMB, GrabPay">
+          <div class="card-title" style="color:var(--accent)" data-i18n="scan.regen">🔄 Regenerated QR</div>
+          <div class="field"><label data-i18n="scan.merchantName">Merchant Name</label><input class="inp" id="dn-edit-name" oninput="regenDuitNow()" data-i18n-ph="ph.scanMerchant" placeholder="Merchant name"></div>
+          <div class="field"><label data-i18n="scan.bank">Bank / Wallet</label><input class="inp" id="dn-edit-bank" list="dn-bank-list" oninput="regenDuitNow()" data-i18n-ph="ph.scanBank" placeholder="e.g. Maybank, CIMB, GrabPay">
           <datalist id="dn-bank-list"><option value="AEON Bank"><option value="Affin Bank"><option value="Agrobank"><option value="Al Rajhi Bank"><option value="Alliance Bank"><option value="AmBank"><option value="Ampersand Pay"><option value="Bank Islam"><option value="Bank Muamalat"><option value="Bank Rakyat"><option value="BigPay"><option value="Boost Bank"><option value="Boost Connect"><option value="BSN"><option value="China Construction Bank"><option value="CIMB Bank"><option value="Citibank"><option value="Co-opbank Pertama"><option value="Curlec"><option value="Fave"><option value="Finexus"><option value="GHL"><option value="GrabPay"><option value="GX Bank"><option value="Hong Leong Bank"><option value="HSBC"><option value="ICBC"><option value="iPay88"><option value="KiplePay"><option value="Kuwait Finance House"><option value="Maybank"><option value="Maybank MAE"><option value="MBSB Bank"><option value="Merchantrade"><option value="OCBC Bank"><option value="Public Bank"><option value="Razer Merchant Services"><option value="RHB Bank"><option value="Setel"><option value="ShopeePay"><option value="Standard Chartered"><option value="Touch 'n Go eWallet"><option value="UOB"><option value="YTL Digital Bank"><option value="2C2P"><option value="JomPAY"></datalist></div>
           <div class="row r2" style="margin-bottom:14px">
-            <div class="field"><label>Name font size — <span class="rv" id="dn-name-fz-val">100%</span></label><input type="range" id="dn-name-fz" min="50" max="200" value="100" oninput="document.getElementById('dn-name-fz-val').textContent=this.value+'%';regenDuitNow()"></div>
-            <div class="field"><label>Bank font size — <span class="rv" id="dn-bank-fz-val">100%</span></label><input type="range" id="dn-bank-fz" min="50" max="200" value="100" oninput="document.getElementById('dn-bank-fz-val').textContent=this.value+'%';regenDuitNow()"></div>
+            <div class="field"><label><span data-i18n="scan.nameFz">Name font size — </span><span class="rv" id="dn-name-fz-val">100%</span></label><input type="range" id="dn-name-fz" min="50" max="200" value="100" oninput="document.getElementById('dn-name-fz-val').textContent=this.value+'%';regenDuitNow()"></div>
+            <div class="field"><label><span data-i18n="scan.bankFz">Bank font size — </span><span class="rv" id="dn-bank-fz-val">100%</span></label><input type="range" id="dn-bank-fz" min="50" max="200" value="100" oninput="document.getElementById('dn-bank-fz-val').textContent=this.value+'%';regenDuitNow()"></div>
           </div>
-          <div class="field"><label>Print Size</label>
+          <div class="field"><label data-i18n="scan.printSize">Print Size</label>
             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
-              <button class="pill dn-size" data-w="400" onclick="setDnSize(400)">Small</button>
-              <button class="pill dn-size on" data-w="600" onclick="setDnSize(600)">Medium</button>
-              <button class="pill dn-size" data-w="900" onclick="setDnSize(900)">Large</button>
-              <button class="pill dn-size" data-w="1200" onclick="setDnSize(1200)">Counter</button>
-              <button class="pill dn-size" data-w="1800" onclick="setDnSize(1800)">Poster</button>
-              <button class="pill dn-size" data-w="2400" onclick="setDnSize(2400)">A4 Print</button>
+              <button class="pill dn-size" data-w="400" onclick="setDnSize(400)" data-i18n="scan.sizeSmall">Small</button>
+              <button class="pill dn-size on" data-w="600" onclick="setDnSize(600)" data-i18n="scan.sizeMedium">Medium</button>
+              <button class="pill dn-size" data-w="900" onclick="setDnSize(900)" data-i18n="scan.sizeLarge">Large</button>
+              <button class="pill dn-size" data-w="1200" onclick="setDnSize(1200)" data-i18n="scan.sizeCounter">Counter</button>
+              <button class="pill dn-size" data-w="1800" onclick="setDnSize(1800)" data-i18n="scan.sizePoster">Poster</button>
+              <button class="pill dn-size" data-w="2400" onclick="setDnSize(2400)" data-i18n="scan.sizeA4">A4 Print</button>
             </div>
-            <div style="display:flex;gap:8px;align-items:center"><span style="font-size:.72rem;color:var(--text3)">Custom:</span><input type="range" id="dn-size-slider" min="300" max="3000" value="600" oninput="setDnSizeSlider(this.value)" style="flex:1"><span class="rv" id="dn-size-val">600px</span></div>
-            <div style="font-size:.68rem;color:var(--text3);margin-top:6px">Small = sticker · Medium = table card · Counter = 10cm display · Poster = A5 · A4 Print = 300dpi full page</div>
+            <div style="display:flex;gap:8px;align-items:center"><span style="font-size:.72rem;color:var(--text3)" data-i18n="scan.custom">Custom:</span><input type="range" id="dn-size-slider" min="300" max="3000" value="600" oninput="setDnSizeSlider(this.value)" style="flex:1"><span class="rv" id="dn-size-val">600px</span></div>
+            <div style="font-size:.68rem;color:var(--text3);margin-top:6px" data-i18n="scan.sizeHint">Small = sticker · Medium = table card · Counter = 10cm display · Poster = A5 · A4 Print = 300dpi full page</div>
           </div>
           <div style="background:#fff;border-radius:var(--radius-lg);padding:16px;max-width:400px;margin:0 auto 12px;text-align:center">
             <canvas id="duitnow-canvas" style="display:block;width:100%;height:auto;border-radius:8px"></canvas>
             <div id="duitnow-regen-name" style="display:none"></div>
             <div id="duitnow-regen-bank" style="display:none"></div>
           </div>
-          <div class="dl-row"><button class="dl-btn" onclick="dlDuitNowPNG()">📥 Download PNG</button><button class="dl-btn" onclick="shareDuitNow()">📤 Share</button></div>
+          <div class="dl-row"><button class="dl-btn" onclick="dlDuitNowPNG()" data-i18n="scan.dlPng">📥 Download PNG</button><button class="dl-btn" onclick="shareDuitNow()" data-i18n="scan.share">📤 Share</button></div>
           <div style="font-size:.68rem;color:var(--text3);text-align:center;margin-top:4px" id="dn-dimensions"></div>
         </div>
         <div style="font-size:.68rem;color:var(--text3);margin-top:12px;padding-top:8px;border-top:1px solid var(--border)">EMV QR research by <a href="https://github.com/natsu90/duitnowqr-test" target="_blank" style="color:var(--accent);text-decoration:none">natsu90</a> · Acquirer list from <a href="https://docs.developer.paynet.my/docs/duitNow-QR/integration/QR-generation-specification/merchant-presented-mode/qr-data-object" target="_blank" style="color:var(--accent);text-decoration:none">PayNet QR Spec v1.5</a> · <a href="https://docs.developer.paynet.my/docs" target="_blank" style="color:var(--accent);text-decoration:none">PayNet Developer Docs</a> · DuitNow is a product of <a href="https://www.paynet.my" target="_blank" style="color:var(--accent);text-decoration:none">PayNet Malaysia</a></div>
       </div>
       <div class="card">
-        <div class="card-title">Decoded Content</div>
+        <div class="card-title" data-i18n="scan.decoded">Decoded Content</div>
         <div id="scan-type-badge" style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:600;background:var(--accent);color:#fff;margin-bottom:10px"></div>
         <div id="scan-content" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--text);word-break:break-all;line-height:1.6;background:var(--bg);padding:14px;border-radius:var(--radius);border:1px solid var(--border);user-select:all"></div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-          <button class="dl-btn" onclick="copyScanResult()">📋 Copy</button>
-          <button class="dl-btn" id="scan-open-btn" style="display:none">🔗 Open Link</button>
-          <button class="dl-btn" onclick="clearScan()">✕ Clear</button>
+          <button class="dl-btn" onclick="copyScanResult()" data-i18n="scan.copy">📋 Copy</button>
+          <button class="dl-btn" id="scan-open-btn" style="display:none" data-i18n="scan.openLink">🔗 Open Link</button>
+          <button class="dl-btn" onclick="clearScan()" data-i18n="scan.clear">✕ Clear</button>
         </div>
       </div>
     </div>
@@ -356,6 +363,299 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   Special thanks to <a href="https://github.com/VenimK" target="_blank">VenimK</a> ❤️
 </div>
 <script>
+// ═══════════════════════════════════════
+// I18N — internationalization (no build step)
+// Add a language: copy the 'en' block in I18N_DICT, translate values,
+// keep keys identical. Then add the language code to I18N_LANGS and
+// a button in .lang-toggle (id="lang-<code>").
+// ═══════════════════════════════════════
+const I18N_DICT={
+en:{
+'app.title':'QR Studio — Generate & Brand QR Codes',
+'hdr.tagline':'Standard & branded QR codes, zero bloat',
+'mode.standard':'Standard','mode.standardSub':'Classic QR codes',
+'mode.chroma':'ChromaCode','mode.chromaSub':'Image-blended mosaic',
+'mode.scanner':'Scanner','mode.scannerSub':'Read & decode QR',
+'type.url':'URL','type.text':'Text','type.wifi':'WiFi','type.email':'Email','type.phone':'Phone',
+'type.sms':'SMS','type.whatsapp':'WhatsApp','type.location':'Location','type.calendar':'Calendar',
+'type.vcard':'vCard','type.duitnow':'🇲🇾 DuitNow',
+'f.wifiSsid':'Network name (SSID)','ph.wifiSsid':'MyWiFi',
+'f.wifiPass':'Password','ph.wifiPass':'Min 8 characters',
+'f.wifiEnc':'Encryption','opt.wpa':'WPA/WPA2','opt.wep':'WEP','opt.none':'None',
+'f.wifiHidden':'Hidden network','f.wifiDisplay':'Display below QR code',
+'f.wifiShowSsid':'Show SSID','f.wifiShowPass':'Show Password','f.wifiShowEnc':'Show Encryption',
+'f.emTo':'Email address','f.emSub':'Subject','ph.emSub':'Subject line','f.emBody':'Body','ph.emBody':'Email body…',
+'f.phone':'Phone number','ph.phone':'555 123 4567',
+'f.smsMsg':'Message (optional)','ph.smsMsg':'Pre-filled SMS text…',
+'f.waMsg':'Pre-filled message (optional)','ph.waMsg':'Hi! I saw your site…',
+'f.locName':'Location name or address','ph.locName':'Eiffel Tower, Paris',
+'f.lat':'Latitude','f.lng':'Longitude',
+'f.calTitle':'Event title','ph.calTitle':'Team Meeting','f.calDesc':'Description','ph.calDesc':'Agenda…',
+'f.calLoc':'Location','ph.calLoc':'Conference Room A',
+'f.calSd':'Start date','f.calSt':'Start time','f.calEd':'End date','f.calEt':'End time','f.calAllday':'All-day event',
+'f.vcFn':'First name','ph.vcFn':'Jane','f.vcLn':'Last name','ph.vcLn':'Smith',
+'f.vcPhone':'Phone','f.vcEmail':'Email','f.vcOrg':'Organization','ph.vcOrg':'Acme Inc.','f.vcUrl':'Website',
+'ph.textAny':'Enter any text or message…',
+'dn.genTitle':'🇲🇾 DuitNow QR Generator',
+'dn.introHtml':'— Builds structurally valid EMV QR strings per <a href="https://docs.developer.paynet.my/docs/duitNow-QR/integration/QR-generation-specification/merchant-presented-mode/qr-data-object" target="_blank" style="color:var(--accent);text-decoration:none">PayNet QR Spec v1.5</a>.',
+'dn.warnHtml':'<strong>⚠ This won\'t process real payments.</strong> The Merchant/QR ID must be a real ID registered with an acquirer bank through PayNet. Generated QR codes have correct format &amp; CRC but are not recognized by the payment network. Useful for developers testing EMV parsers or learning how DuitNow QR is structured. See <a href="https://github.com/natsu90/emvqr/issues/1" target="_blank" style="color:var(--warn);text-decoration:underline">natsu90\'s research</a>.',
+'dn.qrType':'QR Type','dn.genStatic':'Static (reusable)','dn.genDynamic':'Dynamic (one-time)',
+'dn.acquirer':'Acquirer / Bank','dn.acquirerPh':'— Select acquirer —',
+'dn.qrid':'Merchant / QR ID','ph.dnQrid':'e.g. 123456789 (up to 28 chars)',
+'dn.name':'Merchant Name','ph.dnName':'e.g. KEDAI KOPI ALI (up to 25 chars)',
+'dn.city':'City','ph.dnCity':'e.g. KUALA LUMPUR','dn.postal':'Postal Code','ph.dnPostal':'e.g. 59200',
+'dn.mcc':'Category (MCC)','dn.amount':'Amount (optional)','ph.dnAmount':'e.g. 10.00',
+'dn.adv':'⚙ Additional Data (optional)','dn.ref':'Reference Label','ph.dnRef':'Reference',
+'dn.terminal':'Terminal Label','ph.dnTerminal':'Terminal ID','dn.bill':'Bill Number','ph.dnBill':'Invoice #',
+'dn.store':'Store Label','ph.dnStore':'Store #',
+'link.encoded':'Encoded data','link.copy':'Copy','link.copied':'Copied!',
+'style.title':'Style & Colors','style.fg':'QR color','style.bg':'Background','style.ecc':'Error correction',
+'style.eccTip':'<strong>Higher = more reliable.</strong> Your QR stores backup data so it scans even if damaged.<br><br><strong>L (7%)</strong> — Smallest QR, least protection.<br><strong>M (15%)</strong> — Good default.<br><strong>Q (25%)</strong> — Recommended with logos.<br><strong>H (30%)</strong> — Maximum recovery, densest code.',
+'opt.low':'Low (7%)','opt.medium':'Medium (15%)','opt.quartile':'Quartile (25%)','opt.high':'High (30%)',
+'style.lowContrast':'⚠ Low contrast — may affect scanning',
+'style.res':'Resolution','style.tmpl':'Template',
+'tmpl.classic':'Classic','tmpl.christmas':'🎄 Christmas','tmpl.halloween':'🎃 Halloween','tmpl.newyear':'🎆 New Year',
+'tmpl.easter':'🥚 Easter','tmpl.valentine':'💝 Valentine','tmpl.stpatricks':'☘️ St. Patrick\'s','tmpl.birthday':'🎂 Birthday',
+'style.logo':'Center logo','style.tapUpload':'Tap to upload','style.remove':'✕ Remove',
+'style.stroke':'Stroke width — ','style.outline':'Add outline','style.invert':'Invert colors',
+'btn.share':'Share',
+'cc.url':'URL to encode','cc.brand':'Brand Image','cc.tabFav':'Favicon','cc.tabUpl':'Upload','cc.tabIu':'Image URL',
+'cc.favHint':'Auto-fetches the site\'s favicon from the URL above.',
+'cc.drop':'Drop image or tap to browse','ph.ccIu':'https://example.com/logo.png',
+'cc.adv':'⚙ Advanced Settings','cc.dotShape':'Dot shape','opt.circle':'Circle','opt.rounded':'Rounded','opt.square':'Square',
+'cc.eccTip':'<strong>Higher = more reliable.</strong> ChromaCode modifies dots heavily, so <strong>High</strong> is recommended.<br><br><strong>H (30%)</strong> — Best for ChromaCode.<br><strong>Q (25%)</strong> — OK for simple logos.<br><strong>M (15%)</strong> — Risky with blending.',
+'opt.highShort':'High','opt.quartileShort':'Quartile','opt.mediumShort':'Medium',
+'cc.outSize':'Output size','cc.darkRange':'Dark dot range','cc.ghostStr':'Ghost strength','cc.ghostThr':'Ghost threshold',
+'cc.bg':'Background','cc.fallback':'Fallback dark','cc.useColors':'Use image colors',
+'cc.generate':'Generate ChromaCode','cc.generating':'Generating…',
+'scan.title':'Scan QR Code',
+'scan.intro':'Decode any QR code from your <strong>camera</strong>, an <strong>image file</strong>, or <strong>paste</strong> from clipboard. Everything is processed locally — nothing leaves your browser.',
+'scan.dnIntro':'🇲🇾 Full DuitNow QR breakdown — 70 acquirers/banks from PayNet\'s official registry, CRC verification, tip/fee parsing &amp; clean QR regeneration.',
+'scan.openCam':'📷 Open Camera','scan.closeCam':'⏹ Close Camera','scan.scanning':'Scanning…','scan.found':'✓ Found!',
+'scan.camNote':'🔒 Camera access stays in your browser. We never record, store, or transmit video.',
+'scan.drop':'Drop image, tap to browse, or paste (Ctrl+V)',
+'scan.dnTitle':'🇲🇾 DuitNow QR Breakdown','scan.regen':'🔄 Regenerated QR',
+'scan.merchantName':'Merchant Name','ph.scanMerchant':'Merchant name',
+'scan.bank':'Bank / Wallet','ph.scanBank':'e.g. Maybank, CIMB, GrabPay',
+'scan.nameFz':'Name font size — ','scan.bankFz':'Bank font size — ','scan.printSize':'Print Size',
+'scan.sizeSmall':'Small','scan.sizeMedium':'Medium','scan.sizeLarge':'Large','scan.sizeCounter':'Counter',
+'scan.sizePoster':'Poster','scan.sizeA4':'A4 Print',
+'scan.custom':'Custom:','scan.sizeHint':'Small = sticker · Medium = table card · Counter = 10cm display · Poster = A5 · A4 Print = 300dpi full page',
+'scan.dlPng':'📥 Download PNG','scan.share':'📤 Share',
+'scan.decoded':'Decoded Content','scan.copy':'📋 Copy','scan.copied':'✓ Copied!','scan.openLink':'🔗 Open Link',
+'scan.call':'📞 Call','scan.email':'✉️ Email','scan.whatsapp':'💬 WhatsApp','scan.clear':'✕ Clear',
+'val.url':'Enter a valid URL','val.ssid':'SSID required','val.passMin':'Min 8 characters','val.passReq':'Password required for {enc}',
+'val.email':'Invalid email','val.phoneDigits':'4–15 digits required','val.phone':'Invalid phone','val.waDigits':'7–15 digits, no symbols',
+'val.latLng':'Need both lat & lng','val.title':'Title required','val.date':'Date required','val.name':'Name required',
+'val.acquirer':'Select an acquirer','val.qrid':'QR ID required','val.merchant':'Merchant name required',
+'val.city':'City required','val.amount':'Invalid amount',
+'st.enterUrl':'Enter a URL','st.loadingImg':'Loading image…','st.building':'Building QR versions…','st.error':'Error: {e}',
+'st.noImage':'No image uploaded.','st.enterImgUrl':'Enter an image URL.','st.cannotLoad':'Cannot load image. Try uploading instead.',
+'st.invalidUrl':'Invalid URL','st.scannerLoading':'Scanner loading…try again in a moment',
+'st.qrFound':'✓ QR code found','st.noQr':'✕ No QR code detected','st.tryClearer':'Try a clearer image',
+'st.faviconFail':'Cannot load favicon for {d}. Try Upload or Image URL tab.',
+'cam.denied':'Camera permission denied. QR Studio needs camera access only to scan QR codes — no video is recorded or transmitted.',
+'cam.fail':'Could not access camera: {e}',
+'safety.safe':'✅ Looks Safe','safety.warn':'⚠️ Caution','safety.danger':'🚨 Suspicious — Be Careful',
+'safety.noThreats':'No threats detected.','safety.plain':'Plain text. No links or executable content.',
+'safety.https':'HTTPS encrypted','safety.http':'HTTP unencrypted',
+'safety.domainOk':'Domain: <strong>{host}</strong> · {proto} · No threats detected. Verify the domain before entering personal info.',
+'safety.httpWarn':'Uses HTTP (unencrypted).','safety.rawIp':'Raw IP address URL — common in phishing.',
+'safety.longUrl':'Unusually long URL.','safety.badTld':'Suspicious domain extension.',
+'safety.short':'Shortened URL — real destination hidden.','safety.dataUri':'Data URI — can execute code. Do NOT open.',
+'safety.js':'JavaScript injection. Do NOT open.','safety.homograph':'Non-ASCII domain (homograph attack).',
+'safety.creds':'Embedded credentials — likely phishing.','safety.at':'URL contains @ — may redirect elsewhere.',
+'safety.openWifi':'Open WiFi — no password.','safety.wifiOk':'Password-protected WiFi. Verify the network name before connecting.',
+'safety.vcard':'Contact card. Review details before saving.','safety.calendar':'Calendar event. Review before adding.',
+'safety.phone':'Phone number. Verify before calling — premium numbers can charge high fees.',
+'safety.sms':'SMS can pre-fill messages to premium numbers. Review before sending.',
+'safety.email':'Email link. Review recipient and content before sending.',
+'safety.dnPay':'DuitNow payment QR detected. Merchant: <strong>{name}</strong>. Verify this matches the person/business you intend to pay. Check the full breakdown below. Always confirm the amount in your banking app before approving.',
+'safety.pay':'Payment QR code detected. Only use from trusted merchants. Verify amount in your banking app.',
+'safety.crypto':'Crypto address. Double-check every character — transactions are irreversible.',
+'dn.rowType':'QR Type','dn.rowStatic':'STATIC — reusable','dn.rowDynamic':'DYNAMIC — one-time',
+'dn.rowNetwork':'Payment Network','dn.rowWallet':'Wallet / Bank','dn.rowMerchant':'Merchant Name','dn.rowCity':'City',
+'dn.rowPostal':'Postal Code','dn.rowCountry':'Country','dn.rowCurrency':'Currency','dn.rowAmount':'Amount',
+'dn.custAmount':'Customer enters amount','dn.rowTip':'Tip','dn.tipPrompt':'Consumer prompted for tip',
+'dn.rowFee':'Convenience Fee','dn.rowCat':'Category','dn.rowAcct':'Account / QR ID','dn.rowBiller':'Biller Code',
+'dn.rowAcquirer':'Acquirer','dn.rowDesc':'Merchant Descriptor','dn.rowMobile':'Merchant Mobile','dn.rowRef':'Descriptor / Ref',
+'dn.rowCrc':'CRC Checksum','dn.crcOk':'✓ Valid','dn.crcBad':'✕ Invalid (expected {calc})',
+'dn.addl':'Additional Data','dn.altLang':'Alternate Language','dn.lang':'Language','dn.mCity':'Merchant City',
+'dn.channel':'Merchant Channel','dn.unknown':'Unknown',
+'dn.integrity':'Data Integrity','dn.sha':'SHA-256 Hash','dn.regenBtn':'🔄 Regenerate Clean QR Code',
+'dn.at300':'at 300dpi',
+'dn.fBill':'Bill Number','dn.fMobile':'Mobile Number','dn.fStore':'Store Label','dn.fLoyalty':'Loyalty Number',
+'dn.fRef':'Reference Label','dn.fCustomer':'Customer Label','dn.fTerminal':'Terminal Label','dn.fPurpose':'Purpose of Transaction',
+'dn.fCdr':'Consumer Data Request','dn.fTaxId':'Merchant Tax ID','dn.fRrn':'RRN (Ref-1)','dn.fRrn2':'RRN2 (Ref-2)','dn.fGeo':'Geo Coordinates',
+'dn.mPrint0':'Print — Sticker','dn.mPrint1':'Print — Bill/Invoice','dn.mPrint2':'Print — Magazine/Poster','dn.mPrint3':'Print — Others',
+'dn.mScreen4':'Screen — POS/POI','dn.mScreen5':'Screen — Website','dn.mScreen6':'Screen — App','dn.mScreen7':'Screen — Others',
+'dn.lAt':'At merchant premises','dn.lNot':'Not at merchant premises','dn.lRemote':'Remote commerce','dn.lOther':'Others',
+'dn.pAttend':'Attended POS','dn.pUnattend':'Unattended','dn.pSemi':'Semi-attended (self-checkout)','dn.pOther':'Others',
+'misc.open':'Open',
+'detect.whatsapp':'WhatsApp','detect.url':'URL','detect.wifi':'WiFi','detect.email':'Email','detect.phone':'Phone',
+'detect.sms':'SMS','detect.geo':'Location','detect.vcard':'vCard','detect.calendar':'Calendar',
+'detect.bitcoin':'Bitcoin','detect.ethereum':'Ethereum','detect.emv':'EMV Payment','detect.text':'Text'
+},
+'zh-CN':{
+'app.title':'QR Studio — 二维码生成与品牌定制',
+'hdr.tagline':'标准与品牌二维码，零臃肿',
+'mode.standard':'标准','mode.standardSub':'经典二维码',
+'mode.chroma':'ChromaCode','mode.chromaSub':'图片融合马赛克码',
+'mode.scanner':'扫码','mode.scannerSub':'读取并解析二维码',
+'type.url':'URL','type.text':'文本','type.wifi':'WiFi','type.email':'邮件','type.phone':'电话',
+'type.sms':'短信','type.whatsapp':'WhatsApp','type.location':'位置','type.calendar':'日历',
+'type.vcard':'名片','type.duitnow':'🇲🇾 DuitNow',
+'f.wifiSsid':'WiFi 名称（SSID）','ph.wifiSsid':'MyWiFi',
+'f.wifiPass':'密码','ph.wifiPass':'至少 8 位字符',
+'f.wifiEnc':'加密方式','opt.wpa':'WPA/WPA2','opt.wep':'WEP','opt.none':'无',
+'f.wifiHidden':'隐藏网络','f.wifiDisplay':'在二维码下方显示',
+'f.wifiShowSsid':'显示 SSID','f.wifiShowPass':'显示密码','f.wifiShowEnc':'显示加密方式',
+'f.emTo':'收件人邮箱','f.emSub':'主题','ph.emSub':'邮件主题','f.emBody':'正文','ph.emBody':'邮件正文…',
+'f.phone':'电话号码','ph.phone':'138 0000 0000',
+'f.smsMsg':'短信内容（可选）','ph.smsMsg':'预填短信内容…',
+'f.waMsg':'预填消息（可选）','ph.waMsg':'你好！我在你的网站看到…',
+'f.locName':'地点名称或地址','ph.locName':'埃菲尔铁塔，巴黎',
+'f.lat':'纬度','f.lng':'经度',
+'f.calTitle':'活动标题','ph.calTitle':'团队会议','f.calDesc':'描述','ph.calDesc':'议程…',
+'f.calLoc':'地点','ph.calLoc':'会议室 A',
+'f.calSd':'开始日期','f.calSt':'开始时间','f.calEd':'结束日期','f.calEt':'结束时间','f.calAllday':'全天活动',
+'f.vcFn':'名','ph.vcFn':'建国','f.vcLn':'姓','ph.vcLn':'王',
+'f.vcPhone':'电话','f.vcEmail':'邮箱','f.vcOrg':'公司','ph.vcOrg':'某某科技有限公司','f.vcUrl':'网站',
+'ph.textAny':'输入任意文本或消息…',
+'dn.genTitle':'🇲🇾 DuitNow 二维码生成器',
+'dn.introHtml':'— 依据 <a href="https://docs.developer.paynet.my/docs/duitNow-QR/integration/QR-generation-specification/merchant-presented-mode/qr-data-object" target="_blank" style="color:var(--accent);text-decoration:none">PayNet QR 规范 v1.5</a> 生成结构合法的 EMV 二维码字符串。',
+'dn.warnHtml':'<strong>⚠ 不会处理真实付款。</strong>商户/QR ID 必须是已通过 PayNet 在收单银行注册的真实 ID。生成的二维码格式与 CRC 正确，但不会被支付网络识别。适合开发者测试 EMV 解析器或学习 DuitNow 二维码结构。参考 <a href="https://github.com/natsu90/emvqr/issues/1" target="_blank" style="color:var(--warn);text-decoration:underline">natsu90 的研究</a>。',
+'dn.qrType':'二维码类型','dn.genStatic':'静态（可重复使用）','dn.genDynamic':'动态（一次性）',
+'dn.acquirer':'收单机构 / 银行','dn.acquirerPh':'— 请选择收单机构 —',
+'dn.qrid':'商户 / QR ID','ph.dnQrid':'如 123456789（最多 28 字符）',
+'dn.name':'商户名称','ph.dnName':'如 KEDAI KOPI ALI（最多 25 字符）',
+'dn.city':'城市','ph.dnCity':'如 KUALA LUMPUR','dn.postal':'邮编','ph.dnPostal':'如 59200',
+'dn.mcc':'类别（MCC）','dn.amount':'金额（可选）','ph.dnAmount':'如 10.00',
+'dn.adv':'⚙ 更多数据（可选）','dn.ref':'参考标签','ph.dnRef':'参考号',
+'dn.terminal':'终端标签','ph.dnTerminal':'终端 ID','dn.bill':'账单号','ph.dnBill':'发票号',
+'dn.store':'门店标签','ph.dnStore':'门店号',
+'link.encoded':'编码数据','link.copy':'复制','link.copied':'已复制！',
+'style.title':'样式与颜色','style.fg':'二维码颜色','style.bg':'背景色','style.ecc':'容错率',
+'style.eccTip':'<strong>越高越可靠。</strong>二维码内存储了备份数据，即使部分损坏也能扫出来。<br><br><strong>L (7%)</strong> — 体积最小，保护最弱。<br><strong>M (15%)</strong> — 默认推荐。<br><strong>Q (25%)</strong> — 带 Logo 时推荐。<br><strong>H (30%)</strong> — 恢复能力最强，码最密。',
+'opt.low':'低 (7%)','opt.medium':'中 (15%)','opt.quartile':'较高 (25%)','opt.high':'高 (30%)',
+'style.lowContrast':'⚠ 对比度过低 — 可能影响扫码',
+'style.res':'分辨率','style.tmpl':'模板',
+'tmpl.classic':'经典','tmpl.christmas':'🎄 圣诞节','tmpl.halloween':'🎃 万圣节','tmpl.newyear':'🎆 新年',
+'tmpl.easter':'🥚 复活节','tmpl.valentine':'💝 情人节','tmpl.stpatricks':'☘️ 圣帕特里克节','tmpl.birthday':'🎂 生日',
+'style.logo':'中心 Logo','style.tapUpload':'点击上传','style.remove':'✕ 移除',
+'style.stroke':'描边宽度 — ','style.outline':'加描边','style.invert':'反转颜色',
+'btn.share':'分享',
+'cc.url':'要编码的 URL','cc.brand':'品牌图片','cc.tabFav':'网站图标','cc.tabUpl':'上传','cc.tabIu':'图片 URL',
+'cc.favHint':'自动从上方 URL 获取网站 favicon。',
+'cc.drop':'拖入图片或点击浏览','ph.ccIu':'https://example.com/logo.png',
+'cc.adv':'⚙ 高级设置','cc.dotShape':'圆点形状','opt.circle':'圆形','opt.rounded':'圆角','opt.square':'方形',
+'cc.eccTip':'<strong>越高越可靠。</strong>ChromaCode 会大幅改动圆点，因此推荐用<strong>高</strong>。<br><br><strong>H (30%)</strong> — 最适合 ChromaCode。<br><strong>Q (25%)</strong> — 简单 Logo 可用。<br><strong>M (15%)</strong> — 混合后有风险。',
+'opt.highShort':'高','opt.quartileShort':'较高','opt.mediumShort':'中',
+'cc.outSize':'输出尺寸','cc.darkRange':'深色点范围','cc.ghostStr':'幻影强度','cc.ghostThr':'幻影阈值',
+'cc.bg':'背景色','cc.fallback':'深色备用','cc.useColors':'使用图片颜色',
+'cc.generate':'生成 ChromaCode','cc.generating':'生成中…',
+'scan.title':'扫码解析',
+'scan.intro':'用<strong>摄像头</strong>、<strong>图片文件</strong>或从剪贴板<strong>粘贴</strong>解析任意二维码。全部在本地处理 — 数据不会离开浏览器。',
+'scan.dnIntro':'🇲🇾 完整 DuitNow 二维码解析 — PayNet 官方注册的 70 家收单机构/银行、CRC 校验、小费/手续费解析与干净二维码重生成。',
+'scan.openCam':'📷 打开摄像头','scan.closeCam':'⏹ 关闭摄像头','scan.scanning':'扫码中…','scan.found':'✓ 找到了！',
+'scan.camNote':'🔒 摄像头数据只留在浏览器内。我们不会录制、存储或传输视频。',
+'scan.drop':'拖入图片、点击浏览，或粘贴（Ctrl+V）',
+'scan.dnTitle':'🇲🇾 DuitNow 二维码解析','scan.regen':'🔄 重生成二维码',
+'scan.merchantName':'商户名称','ph.scanMerchant':'商户名称',
+'scan.bank':'银行 / 钱包','ph.scanBank':'如 Maybank、CIMB、GrabPay',
+'scan.nameFz':'名称字号 — ','scan.bankFz':'银行字号 — ','scan.printSize':'打印尺寸',
+'scan.sizeSmall':'小','scan.sizeMedium':'中','scan.sizeLarge':'大','scan.sizeCounter':'柜台',
+'scan.sizePoster':'海报','scan.sizeA4':'A4 打印',
+'scan.custom':'自定义：','scan.sizeHint':'小 = 贴纸 · 中 = 桌卡 · 柜台 = 10cm 展示牌 · 海报 = A5 · A4 打印 = 300dpi 整页',
+'scan.dlPng':'📥 下载 PNG','scan.share':'📤 分享',
+'scan.decoded':'解析内容','scan.copy':'📋 复制','scan.copied':'✓ 已复制！','scan.openLink':'🔗 打开链接',
+'scan.call':'📞 拨打电话','scan.email':'✉️ 发邮件','scan.whatsapp':'💬 WhatsApp','scan.clear':'✕ 清除',
+'val.url':'请输入有效的 URL','val.ssid':'请填写 SSID','val.passMin':'至少 8 位字符','val.passReq':'使用 {enc} 加密时必须填写密码',
+'val.email':'邮箱格式不正确','val.phoneDigits':'需要 4–15 位数字','val.phone':'电话号码格式不正确','val.waDigits':'7–15 位数字，不要加符号',
+'val.latLng':'经纬度需同时填写','val.title':'请填写标题','val.date':'请选择日期','val.name':'请填写姓名',
+'val.acquirer':'请选择收单机构','val.qrid':'请填写商户 QR ID','val.merchant':'请填写商户名称',
+'val.city':'请填写城市','val.amount':'金额格式不正确',
+'st.enterUrl':'请输入 URL','st.loadingImg':'图片加载中…','st.building':'正在生成二维码版本…','st.error':'出错：{e}',
+'st.noImage':'未上传图片。','st.enterImgUrl':'请输入图片 URL。','st.cannotLoad':'图片加载失败，请改用上传。',
+'st.invalidUrl':'URL 无效','st.scannerLoading':'扫码器加载中…请稍后再试',
+'st.qrFound':'✓ 找到二维码','st.noQr':'✕ 未检测到二维码','st.tryClearer':'换一张更清晰的图片试试',
+'st.faviconFail':'无法加载 {d} 的 favicon，请改用「上传」或「图片 URL」。',
+'cam.denied':'摄像头权限被拒绝。QR Studio 只用摄像头扫码 — 不会录制或传输视频。',
+'cam.fail':'无法访问摄像头：{e}',
+'safety.safe':'✅ 看起来安全','safety.warn':'⚠️ 请注意','safety.danger':'🚨 可疑 — 请小心',
+'safety.noThreats':'未发现威胁。','safety.plain':'纯文本，不含链接或可执行内容。',
+'safety.https':'HTTPS 加密','safety.http':'HTTP 未加密',
+'safety.domainOk':'域名：<strong>{host}</strong> · {proto} · 未发现威胁。输入个人信息前请先确认域名。',
+'safety.httpWarn':'使用 HTTP（未加密）。','safety.rawIp':'裸 IP 地址 URL — 常见于钓鱼。',
+'safety.longUrl':'URL 异常地长。','safety.badTld':'可疑的域名后缀。',
+'safety.short':'短链接 — 真实目标被隐藏。','safety.dataUri':'Data URI — 可执行代码，请勿打开。',
+'safety.js':'JavaScript 注入，请勿打开。','safety.homograph':'非 ASCII 域名（同形异义攻击）。',
+'safety.creds':'URL 中嵌入了账号密码 — 疑似钓鱼。','safety.at':'URL 中含 @ — 可能会跳转到别处。',
+'safety.openWifi':'开放 WiFi — 无密码。','safety.wifiOk':'加密 WiFi，连接前请确认网络名称。',
+'safety.vcard':'联系人名片，保存前请核对信息。','safety.calendar':'日历活动，添加前请确认。',
+'safety.phone':'电话号码，拨打前请确认 — 付费号码可能产生高额费用。',
+'safety.sms':'短信可预填内容发往付费号码，发送前请确认。',
+'safety.email':'邮件链接，发送前请确认收件人和内容。',
+'safety.dnPay':'检测到 DuitNow 付款码。商户：<strong>{name}</strong>。请确认与你要付款的对象一致，查看下方完整解析。确认前请务必在银行 App 里核对金额。',
+'safety.pay':'检测到付款二维码，仅信任的商户可用。请在银行 App 里核对金额。',
+'safety.crypto':'加密货币地址，请逐字核对 — 交易不可逆。',
+'dn.rowType':'二维码类型','dn.rowStatic':'STATIC — 可重复使用','dn.rowDynamic':'DYNAMIC — 一次性',
+'dn.rowNetwork':'支付网络','dn.rowWallet':'钱包 / 银行','dn.rowMerchant':'商户名称','dn.rowCity':'城市',
+'dn.rowPostal':'邮编','dn.rowCountry':'国家','dn.rowCurrency':'货币','dn.rowAmount':'金额',
+'dn.custAmount':'由顾客输入金额','dn.rowTip':'小费','dn.tipPrompt':'提示顾客输入小费',
+'dn.rowFee':'手续费','dn.rowCat':'类别','dn.rowAcct':'账户 / QR ID','dn.rowBiller':'账单机构代码',
+'dn.rowAcquirer':'收单机构','dn.rowDesc':'商户描述','dn.rowMobile':'商户手机','dn.rowRef':'描述 / 参考号',
+'dn.rowCrc':'CRC 校验','dn.crcOk':'✓ 有效','dn.crcBad':'✕ 无效（应为 {calc}）',
+'dn.addl':'附加数据','dn.altLang':'备选语言','dn.lang':'语言','dn.mCity':'商户城市',
+'dn.channel':'商户渠道','dn.unknown':'未知',
+'dn.integrity':'数据完整性','dn.sha':'SHA-256 哈希','dn.regenBtn':'🔄 重生成干净二维码',
+'dn.at300':'@300dpi',
+'dn.fBill':'账单号','dn.fMobile':'手机号','dn.fStore':'门店标签','dn.fLoyalty':'会员号',
+'dn.fRef':'参考标签','dn.fCustomer':'顾客标签','dn.fTerminal':'终端标签','dn.fPurpose':'交易用途',
+'dn.fCdr':'用户数据请求','dn.fTaxId':'商户税号','dn.fRrn':'RRN（参考 1）','dn.fRrn2':'RRN2（参考 2）','dn.fGeo':'地理坐标',
+'dn.mPrint0':'打印 — 贴纸','dn.mPrint1':'打印 — 账单/发票','dn.mPrint2':'打印 — 杂志/海报','dn.mPrint3':'打印 — 其他',
+'dn.mScreen4':'屏幕 — POS/收银','dn.mScreen5':'屏幕 — 网站','dn.mScreen6':'屏幕 — App','dn.mScreen7':'屏幕 — 其他',
+'dn.lAt':'在商户店内','dn.lNot':'不在商户店内','dn.lRemote':'远程交易','dn.lOther':'其他',
+'dn.pAttend':'有人值守','dn.pUnattend':'无人值守','dn.pSemi':'半自助（自助结账）','dn.pOther':'其他',
+'misc.open':'开放',
+'detect.whatsapp':'WhatsApp','detect.url':'网址','detect.wifi':'WiFi','detect.email':'邮件','detect.phone':'电话',
+'detect.sms':'短信','detect.geo':'位置','detect.vcard':'名片','detect.calendar':'日历',
+'detect.bitcoin':'比特币','detect.ethereum':'以太坊','detect.emv':'EMV 付款','detect.text':'文本'
+}
+};
+const I18N_LANGS=['en','zh-CN'];
+const I18N_NAMES={'en':'EN','zh-CN':'中文'};
+let I18N_CUR='en';
+function t(k,vars){
+  const d=I18N_DICT[I18N_CUR]||{};
+  let s=d[k]!==undefined?d[k]:(I18N_DICT.en[k]!==undefined?I18N_DICT.en[k]:k);
+  if(vars)for(const key in vars)s=s.split('{'+key+'}').join(String(vars[key]));
+  return s;
+}
+function applyI18n(){
+  document.documentElement.lang=I18N_CUR;
+  document.title=t('app.title');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.getAttribute('data-i18n'))});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{el.innerHTML=t(el.getAttribute('data-i18n-html'))});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{el.setAttribute('placeholder',t(el.getAttribute('data-i18n-ph')))});
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{el.setAttribute('title',t(el.getAttribute('data-i18n-title')))});
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{el.setAttribute('aria-label',t(el.getAttribute('data-i18n-aria')))});
+  I18N_LANGS.forEach(l=>{const b=document.getElementById('lang-'+l);if(b)b.classList.toggle('on',I18N_CUR===l)});
+}
+function setLang(l,opts){
+  if(!I18N_DICT[l])l='en';
+  I18N_CUR=l;
+  try{localStorage.setItem('qr-lang',l)}catch(e){}
+  applyI18n();
+  if(opts&&opts.silent)return;
+  // re-render dynamic content in the new language
+  try{if(typeof liveGenerate==='function')liveGenerate()}catch(e){}
+  try{if(typeof camRunning!=='undefined'&&camRunning)document.getElementById('cam-btn').textContent=t('scan.closeCam')}catch(e){}
+  try{if(typeof scanResultData!=='undefined'&&scanResultData&&typeof showScanResult==='function')showScanResult(scanResultData,true)}catch(e){}
+  try{if(document.getElementById('duitnow-regen')&&document.getElementById('duitnow-regen').style.display==='block'&&typeof regenDuitNow==='function')regenDuitNow()}catch(e){}
+}
+(function(){let l='en';try{l=localStorage.getItem('qr-lang')||(((navigator.language||'en').toLowerCase().indexOf('zh')===0)?'zh-CN':'en')}catch(e){}setLang(l,{silent:true})})();
+
 // ═══════ THEME ═══════
 function setTheme(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('theme-light').classList.toggle('on',t==='light');document.getElementById('theme-dark').classList.toggle('on',t==='dark');try{localStorage.setItem('qr-theme',t)}catch{}}
 (()=>{try{const t=localStorage.getItem('qr-theme');if(t)setTheme(t)}catch{}})();
@@ -379,7 +679,7 @@ const stdLogoDz=document.getElementById('std-logo-dz'),stdLogoFi=document.getEle
 stdLogoDz.onclick=()=>stdLogoFi.click();
 stdLogoFi.onchange=e=>loadStdLogo(e.target.files[0]);
 function loadStdLogo(f){if(!f||!f.type.startsWith('image/'))return;const r=new FileReader();r.onload=e=>{stdLogoData=e.target.result;const img=new Image();img.onload=()=>{stdLogoImg=img;liveGenerate()};img.src=stdLogoData;document.getElementById('std-logo-preview').src=stdLogoData;document.getElementById('std-logo-strip').style.display='flex';document.getElementById('std-logo-prompt').textContent=f.name};r.readAsDataURL(f)}
-function clearStdLogo(){stdLogoData=null;stdLogoImg=null;document.getElementById('std-logo-strip').style.display='none';document.getElementById('std-logo-prompt').textContent='Tap to upload';stdLogoFi.value='';liveGenerate()}
+function clearStdLogo(){stdLogoData=null;stdLogoImg=null;document.getElementById('std-logo-strip').style.display='none';document.getElementById('std-logo-prompt').textContent=t('style.tapUpload');stdLogoFi.value='';liveGenerate()}
 function toggleWifiEye(){const inp=document.getElementById('wifi-pass');const btn=document.getElementById('wifi-eye');if(inp.type==='password'){inp.type='text';btn.textContent='🙈'}else{inp.type='password';btn.textContent='👁️‍🗨️'}}
 
 // ═══════ COLORS ═══════
@@ -400,23 +700,23 @@ function validateAll(){
   document.querySelectorAll('.val-msg').forEach(el=>{el.textContent='';el.className='val-msg'});
   document.querySelectorAll('.inp.invalid,.inp.valid').forEach(el=>el.classList.remove('invalid','valid'));
   switch(type){
-    case 'url':{let v=document.getElementById('in-url').value.trim();if(!v){valid=false;break}if(!/^https?:\/\//i.test(v)&&v.includes('.'))v='https://'+v;if(!isUrl(v)){valid=false;vMsg('v-url','Enter a valid URL','err');document.getElementById('in-url').classList.add('invalid')}else document.getElementById('in-url').classList.add('valid');break}
+    case 'url':{let v=document.getElementById('in-url').value.trim();if(!v){valid=false;break}if(!/^https?:\/\//i.test(v)&&v.includes('.'))v='https://'+v;if(!isUrl(v)){valid=false;vMsg('v-url',t('val.url'),'err');document.getElementById('in-url').classList.add('invalid')}else document.getElementById('in-url').classList.add('valid');break}
     case 'text':if(!document.getElementById('in-text').value.trim())valid=false;break;
-    case 'wifi':{const s=document.getElementById('wifi-ssid').value.trim(),p=document.getElementById('wifi-pass').value,enc=document.getElementById('wifi-enc').value;if(!s){valid=false;vMsg('v-wifi-ssid','SSID required','err');document.getElementById('wifi-ssid').classList.add('invalid')}else document.getElementById('wifi-ssid').classList.add('valid');if(enc&&p.length>0&&p.length<8){valid=false;vMsg('v-wifi-pass','Min 8 characters','err');document.getElementById('wifi-pass').classList.add('invalid')}else if(enc&&!p){valid=false;vMsg('v-wifi-pass','Password required for '+enc,'err');document.getElementById('wifi-pass').classList.add('invalid')}else if(enc&&p.length>=8)document.getElementById('wifi-pass').classList.add('valid');break}
-    case 'email':{const to=document.getElementById('em-to').value.trim();if(!to){valid=false;break}if(!isEmail(to)){valid=false;vMsg('v-em-to','Invalid email','err');document.getElementById('em-to').classList.add('invalid')}else document.getElementById('em-to').classList.add('valid');break}
-    case 'phone':{const ph=document.getElementById('in-phone').value.trim();if(!ph){valid=false;break}if(!isPhone(ph)){valid=false;vMsg('v-phone','4–15 digits required','err');document.getElementById('in-phone').classList.add('invalid')}else document.getElementById('in-phone').classList.add('valid');break}
-    case 'sms':{const ph=document.getElementById('sms-phone').value.trim();if(!ph){valid=false;break}if(!isPhone(ph)){valid=false;vMsg('v-sms-phone','Invalid phone','err');document.getElementById('sms-phone').classList.add('invalid')}else document.getElementById('sms-phone').classList.add('valid');break}
-    case 'whatsapp':{const ph=document.getElementById('wa-phone').value.trim();if(!ph){valid=false;break}if(!/^\d{7,15}$/.test(ph.replace(/[\s\-]/g,''))){valid=false;vMsg('v-wa-phone','7–15 digits, no symbols','err');document.getElementById('wa-phone').classList.add('invalid')}else document.getElementById('wa-phone').classList.add('valid');break}
-    case 'location':{const n=document.getElementById('loc-name').value.trim(),la=document.getElementById('loc-lat').value.trim(),ln=document.getElementById('loc-lng').value.trim();if(!n&&!la&&!ln)valid=false;if((la&&!ln)||(!la&&ln)){valid=false;vMsg('v-loc','Need both lat & lng','warn')}break}
-    case 'calendar':{if(!document.getElementById('cal-title').value.trim()){valid=false;vMsg('v-cal-title','Title required','err')}if(!document.getElementById('cal-sd').value){valid=false;vMsg('v-cal-sd','Date required','err')}break}
-    case 'vcard':{if(!document.getElementById('vc-fn').value.trim()&&!document.getElementById('vc-ln').value.trim()){valid=false;vMsg('v-vc-name','Name required','err')}const em=document.getElementById('vc-email').value.trim();if(em&&!isEmail(em)){valid=false;vMsg('v-vc-email','Invalid email','err')}break}
+    case 'wifi':{const s=document.getElementById('wifi-ssid').value.trim(),p=document.getElementById('wifi-pass').value,enc=document.getElementById('wifi-enc').value;if(!s){valid=false;vMsg('v-wifi-ssid',t('val.ssid'),'err');document.getElementById('wifi-ssid').classList.add('invalid')}else document.getElementById('wifi-ssid').classList.add('valid');if(enc&&p.length>0&&p.length<8){valid=false;vMsg('v-wifi-pass',t('val.passMin'),'err');document.getElementById('wifi-pass').classList.add('invalid')}else if(enc&&!p){valid=false;vMsg('v-wifi-pass',t('val.passReq',{enc:enc}),'err');document.getElementById('wifi-pass').classList.add('invalid')}else if(enc&&p.length>=8)document.getElementById('wifi-pass').classList.add('valid');break}
+    case 'email':{const to=document.getElementById('em-to').value.trim();if(!to){valid=false;break}if(!isEmail(to)){valid=false;vMsg('v-em-to',t('val.email'),'err');document.getElementById('em-to').classList.add('invalid')}else document.getElementById('em-to').classList.add('valid');break}
+    case 'phone':{const ph=document.getElementById('in-phone').value.trim();if(!ph){valid=false;break}if(!isPhone(ph)){valid=false;vMsg('v-phone',t('val.phoneDigits'),'err');document.getElementById('in-phone').classList.add('invalid')}else document.getElementById('in-phone').classList.add('valid');break}
+    case 'sms':{const ph=document.getElementById('sms-phone').value.trim();if(!ph){valid=false;break}if(!isPhone(ph)){valid=false;vMsg('v-sms-phone',t('val.phone'),'err');document.getElementById('sms-phone').classList.add('invalid')}else document.getElementById('sms-phone').classList.add('valid');break}
+    case 'whatsapp':{const ph=document.getElementById('wa-phone').value.trim();if(!ph){valid=false;break}if(!/^\d{7,15}$/.test(ph.replace(/[\s\-]/g,''))){valid=false;vMsg('v-wa-phone',t('val.waDigits'),'err');document.getElementById('wa-phone').classList.add('invalid')}else document.getElementById('wa-phone').classList.add('valid');break}
+    case 'location':{const n=document.getElementById('loc-name').value.trim(),la=document.getElementById('loc-lat').value.trim(),ln=document.getElementById('loc-lng').value.trim();if(!n&&!la&&!ln)valid=false;if((la&&!ln)||(!la&&ln)){valid=false;vMsg('v-loc',t('val.latLng'),'warn')}break}
+    case 'calendar':{if(!document.getElementById('cal-title').value.trim()){valid=false;vMsg('v-cal-title',t('val.title'),'err')}if(!document.getElementById('cal-sd').value){valid=false;vMsg('v-cal-sd',t('val.date'),'err')}break}
+    case 'vcard':{if(!document.getElementById('vc-fn').value.trim()&&!document.getElementById('vc-ln').value.trim()){valid=false;vMsg('v-vc-name',t('val.name'),'err')}const em=document.getElementById('vc-email').value.trim();if(em&&!isEmail(em)){valid=false;vMsg('v-vc-email',t('val.email'),'err')}break}
     case 'duitnow':{
-      if(!document.getElementById('dn-gen-acquirer').value){valid=false;vMsg('v-dn-acquirer','Select an acquirer','err')}
-      if(!document.getElementById('dn-gen-qrid').value.trim()){valid=false;vMsg('v-dn-qrid','QR ID required','err')}
-      if(!document.getElementById('dn-gen-name').value.trim()){valid=false;vMsg('v-dn-name','Merchant name required','err')}
-      if(!document.getElementById('dn-gen-city').value.trim()){valid=false;vMsg('v-dn-city','City required','err')}
+      if(!document.getElementById('dn-gen-acquirer').value){valid=false;vMsg('v-dn-acquirer',t('val.acquirer'),'err')}
+      if(!document.getElementById('dn-gen-qrid').value.trim()){valid=false;vMsg('v-dn-qrid',t('val.qrid'),'err')}
+      if(!document.getElementById('dn-gen-name').value.trim()){valid=false;vMsg('v-dn-name',t('val.merchant'),'err')}
+      if(!document.getElementById('dn-gen-city').value.trim()){valid=false;vMsg('v-dn-city',t('val.city'),'err')}
       const amt=document.getElementById('dn-gen-amount').value;
-      if(amt&&(isNaN(parseFloat(amt))||parseFloat(amt)<0)){valid=false;vMsg('v-dn-amount','Invalid amount','err')}
+      if(amt&&(isNaN(parseFloat(amt))||parseFloat(amt)<0)){valid=false;vMsg('v-dn-amount',t('val.amount'),'err')}
       break}
   }
   return valid;
@@ -498,7 +798,7 @@ function setDnGenType(v){document.querySelectorAll('.dn-gen-type').forEach(b=>b.
 
 // ═══════ LINK BOX ═══════
 function updateLinkBox(d){const b=document.getElementById('std-link-box'),v=document.getElementById('std-link-val');if(!d){b.classList.remove('on');return}v.textContent=d;b.classList.add('on')}
-function copyLink(){navigator.clipboard.writeText(document.getElementById('std-link-val').textContent).then(()=>{const b=document.querySelector('#std-link-box .copy-btn');b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)})}
+function copyLink(){navigator.clipboard.writeText(document.getElementById('std-link-val').textContent).then(()=>{const b=document.querySelector('#std-link-box .copy-btn');b.textContent=t('link.copied');setTimeout(()=>b.textContent=t('link.copy'),1500)})}
 
 // ═══════ LIVE GENERATE ═══════
 let _genTimer=null;
@@ -519,7 +819,7 @@ function generateStandard(){
   const modules=qr.getModuleCount(),canvas=document.getElementById('std-canvas');
   const quietMod=Math.round(modules*stroke),totalMod=modules+quietMod*2,scale=Math.max(1,Math.floor(res/totalMod)),realSize=totalMod*scale;
   let wifiLines=[];
-  if(curType==='wifi'){if(document.getElementById('wifi-show-ssid').checked){const v=document.getElementById('wifi-ssid').value.trim();if(v)wifiLines.push('📶  '+v)}if(document.getElementById('wifi-show-pass').checked){const v=document.getElementById('wifi-pass').value;if(v)wifiLines.push('🔑  '+v)}if(document.getElementById('wifi-show-enc').checked){wifiLines.push('🔒  '+(document.getElementById('wifi-enc').value||'Open'))}}
+  if(curType==='wifi'){if(document.getElementById('wifi-show-ssid').checked){const v=document.getElementById('wifi-ssid').value.trim();if(v)wifiLines.push('📶  '+v)}if(document.getElementById('wifi-show-pass').checked){const v=document.getElementById('wifi-pass').value;if(v)wifiLines.push('🔑  '+v)}if(document.getElementById('wifi-show-enc').checked){wifiLines.push('🔒  '+(document.getElementById('wifi-enc').value||t('misc.open')))}}
   const lineH=Math.round(realSize*.06),textPad=wifiLines.length?Math.round(lineH*.6):0,extraH=wifiLines.length?(wifiLines.length*lineH+textPad*2):0;
   canvas.width=realSize;canvas.height=realSize+extraH;
   const ctx=canvas.getContext('2d');ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=fg;
@@ -605,9 +905,9 @@ const MY_PROXY='';
 const CORS_PROXIES=[...(MY_PROXY?[u=>MY_PROXY+'?url='+encodeURIComponent(u)]:[]),u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u),u=>'https://corsproxy.io/?'+encodeURIComponent(u)];
 async function ccFetchWithProxies(url){let img=await ccFetchImg(url);if(img)return img;try{return await Promise.any(CORS_PROXIES.map(p=>new Promise(async(res,rej)=>{const i=await ccFetchImg(p(url));i?res(i):rej()})))}catch{return null}}
 function ccImgLoad(src){return new Promise(res=>{const i=new Image();i.crossOrigin='anonymous';i.onload=()=>i.naturalWidth<2?res(null):res(i);i.onerror=()=>res(null);i.src=src;setTimeout(()=>res(null),2500)})}
-async function ccLoadImg(url){const tab=ccActiveTab();if(tab==='upl'){if(!ccUploadedFile)throw'No image uploaded.';return await ccFileToImg(ccUploadedFile)}if(tab==='iu'){const u=document.getElementById('cc-iu').value.trim();if(!u)throw'Enter an image URL.';const img=await ccFetchWithProxies(u);if(img)return img;throw'Cannot load image. Try uploading instead.'}let d;try{d=new URL(url).hostname}catch{throw'Invalid URL'}
+async function ccLoadImg(url){const tab=ccActiveTab();if(tab==='upl'){if(!ccUploadedFile)throw t('st.noImage');return await ccFileToImg(ccUploadedFile)}if(tab==='iu'){const u=document.getElementById('cc-iu').value.trim();if(!u)throw t('st.enterImgUrl');const img=await ccFetchWithProxies(u);if(img)return img;throw t('st.cannotLoad')}let d;try{d=new URL(url).hostname}catch{throw t('st.invalidUrl')}
 const sources=[`https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${d}&size=256`,`https://www.google.com/s2/favicons?domain=${d}&sz=256`,`https://icons.duckduckgo.com/ip3/${d}.ico`,`https://logo.clearbit.com/${d}`,`https://${d}/apple-touch-icon.png`,`https://${d}/favicon.ico`];
-try{return await Promise.any(sources.map(s=>new Promise(async(res,rej)=>{const img=await ccImgLoad(s);if(img){try{const c=document.createElement('canvas');c.width=c.height=2;const cx=c.getContext('2d');cx.drawImage(img,0,0);cx.getImageData(0,0,1,1);return res(img)}catch{}}const f=await ccFetchWithProxies(s);f?res(f):rej()})))}catch{}throw`Cannot load favicon for ${d}. Try Upload or Image URL tab.`}
+try{return await Promise.any(sources.map(s=>new Promise(async(res,rej)=>{const img=await ccImgLoad(s);if(img){try{const c=document.createElement('canvas');c.width=c.height=2;const cx=c.getContext('2d');cx.drawImage(img,0,0);cx.getImageData(0,0,1,1);return res(img)}catch{}}const f=await ccFetchWithProxies(s);f?res(f):rej()})))}catch{}throw t('st.faviconFail',{d:d})}
 function ccFileToImg(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=r.result};r.onerror=rej;r.readAsDataURL(f)})}
 function ccExtractColors(img){const c=document.createElement('canvas');c.width=c.height=64;const ctx=c.getContext('2d');ctx.drawImage(img,0,0,64,64);const d=ctx.getImageData(0,0,64,64).data;const bk={};for(let i=0;i<d.length;i+=4){if(d[i+3]<128)continue;const k=`${Math.round(d[i]/24)*24},${Math.round(d[i+1]/24)*24},${Math.round(d[i+2]/24)*24}`;bk[k]=(bk[k]||0)+1}return Object.entries(bk).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k])=>{const[r,g,b]=k.split(',').map(Number);return{r,g,b}})}
 function ccImgToGrid(img,sz){const c=document.createElement('canvas');c.width=c.height=sz;const ctx=c.getContext('2d');const iw=img.naturalWidth,ih=img.naturalHeight,sc=Math.max(sz/iw,sz/ih),sw=iw*sc,sh=ih*sc;ctx.drawImage(img,(sz-sw)/2,(sz-sh)/2,sw,sh);return ctx.getImageData(0,0,sz,sz)}
@@ -621,7 +921,7 @@ function ccAutoTune(grid,sz){let minL=1,maxL=0,darkPx=0,lightPx=0;for(let r=0;r<
 function ccSetS(id,v,lid){document.getElementById(id).value=v;document.getElementById(lid).textContent=v+'%'}
 function ccRenderToCanvas(canvas,qr,sz,grid,outPx){const dMin=+document.getElementById('cc-dmn').value/100,dMax=+document.getElementById('cc-dmx').value/100,gStr=+document.getElementById('cc-gs').value/100,gThr=+document.getElementById('cc-gt').value/100,shape=document.getElementById('cc-shp').value,bgC=document.getElementById('cc-bgc').value,fd=ccHexRgb(document.getElementById('cc-fdc').value),useCol=document.getElementById('cc-col').checked;const ctx=canvas.getContext('2d');const q=2,tot=sz+q*2,cell=outPx/tot,mR=cell/2;ctx.fillStyle=bgC;ctx.fillRect(0,0,outPx,outPx);for(let row=0;row<sz;row++)for(let col=0;col<sz;col++){const isDk=qr.isDark(row,col),cx=(col+q+.5)*cell,cy=(row+q+.5)*cell,crit=ccIsCritical(row,col,sz),p=ccPx(grid,col,row),L=ccLum(p.r,p.g,p.b),dk=1-L;if(isDk){let r,color;if(crit){r=mR*.92;const dom=CCS.colors[0]||fd;const fc=useCol?{r:Math.round(dom.r*.8),g:Math.round(dom.g*.8),b:Math.round(dom.b*.8)}:fd;color=`rgb(${fc.r},${fc.g},${fc.b})`}else{r=mR*Math.max(dMin,Math.min(1.05,dMin+(dMax-dMin)*dk));if(useCol&&p.a>100){const bc=ccBoostColor(p.r,p.g,p.b,.3);if(L>.78){const m=(L-.78)/.22;color=`rgb(${Math.round(bc.r*(1-m*.75)+fd.r*m*.75)},${Math.round(bc.g*(1-m*.75)+fd.g*m*.75)},${Math.round(bc.b*(1-m*.75)+fd.b*m*.75)})`}else color=`rgb(${bc.r},${bc.g},${bc.b})`}else color=`rgb(${fd.r},${fd.g},${fd.b})`}ccDot(ctx,cx,cy,r,shape,color)}else if(!crit&&gStr>0&&dk>gThr){const nd=(dk-gThr)/(1-gThr),gc=mR*.35,r=Math.min(mR*.04+(gc*gStr-mR*.04)*Math.pow(nd,.55),gc);const bc=useCol&&p.a>100?ccBoostColor(p.r,p.g,p.b,.3):{r:fd.r,g:fd.g,b:fd.b};ccDot(ctx,cx,cy,r,shape,`rgb(${bc.r},${bc.g},${bc.b})`)}}}
 function ccDot(ctx,cx,cy,r,shape,color){ctx.fillStyle=color;if(shape==='circle'){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill()}else if(shape==='rrect'){const rr=r*.35;ctx.beginPath();ctx.moveTo(cx-r+rr,cy-r);ctx.lineTo(cx+r-rr,cy-r);ctx.quadraticCurveTo(cx+r,cy-r,cx+r,cy-r+rr);ctx.lineTo(cx+r,cy+r-rr);ctx.quadraticCurveTo(cx+r,cy+r,cx+r-rr,cy+r);ctx.lineTo(cx-r+rr,cy+r);ctx.quadraticCurveTo(cx-r,cy+r,cx-r,cy+r-rr);ctx.lineTo(cx-r,cy-r+rr);ctx.quadraticCurveTo(cx-r,cy-r,cx-r+rr,cy-r);ctx.closePath();ctx.fill()}else ctx.fillRect(cx-r,cy-r,r*2,r*2)}
-async function generateChroma(){let url=document.getElementById('cc-url').value.trim();if(!url){ccStatus('Enter a URL',true);return}if(!/^https?:\/\//i.test(url)&&url.includes('.')){url='https://'+url;document.getElementById('cc-url').value=url}const btn=document.getElementById('cc-gen-btn');btn.disabled=true;btn.innerHTML='<span class="spin"></span> Generating…';ccStatus('Loading image…');try{const src=await ccLoadImg(url);const colors=ccExtractColors(src);CCS.colors=colors;CCS.label=(()=>{try{return new URL(url).hostname}catch{return'qr'}})();CCS.thumb=src.src||'';document.getElementById('cc-sth').src=CCS.thumb;document.getElementById('cc-sn').textContent=CCS.label;const pal=document.getElementById('cc-pal');pal.innerHTML='';colors.forEach(c=>{const d=document.createElement('div');d.className='sw';d.style.background=`rgb(${c.r},${c.g},${c.b})`;pal.appendChild(d)});document.getElementById('cc-srcinfo').style.display='flex';const ecc=document.getElementById('cc-ecc').value;CCS.versions=[];const car=document.getElementById('cc-carousel');car.innerHTML='';ccStatus('Building QR versions…');let tuned=false;for(let i=0;i<CC_VERSIONS.length;i++){const ver=CC_VERSIONS[i];let qr;try{qr=qrcode(ver,ecc);qr.addData(url);qr.make()}catch{try{qr=qrcode(0,ecc);qr.addData(url);qr.make()}catch{continue}}const sz=qr.getModuleCount(),grid=ccImgToGrid(src,sz);if(!tuned){ccAutoTune(grid,sz);tuned=true}const tc=document.createElement('canvas');tc.width=tc.height=128;ccRenderToCanvas(tc,qr,sz,grid,128);CCS.versions.push({qr,sz,grid,ver});const card=document.createElement('div');card.className='vcard'+(i===CCS.selectedIdx?' sel':'');card.innerHTML=`<div class="vthumb"></div><div class="vlabel">v${ver} · ${sz}×${sz}</div>`;card.querySelector('.vthumb').appendChild(tc);card.onclick=()=>ccSelectVersion(i);car.appendChild(card)}CCS.selectedIdx=Math.min(CCS.selectedIdx,CCS.versions.length-1);ccRenderSelected();document.getElementById('cc-preview-area').classList.add('on');ccStatus('')}catch(e){ccStatus('Error: '+e,true)}finally{btn.disabled=false;btn.textContent='Generate ChromaCode'}}
+async function generateChroma(){let url=document.getElementById('cc-url').value.trim();if(!url){ccStatus(t('st.enterUrl'),true);return}if(!/^https?:\/\//i.test(url)&&url.includes('.')){url='https://'+url;document.getElementById('cc-url').value=url}const btn=document.getElementById('cc-gen-btn');btn.disabled=true;btn.innerHTML='<span class="spin"></span> '+t('cc.generating');ccStatus(t('st.loadingImg'));try{const src=await ccLoadImg(url);const colors=ccExtractColors(src);CCS.colors=colors;CCS.label=(()=>{try{return new URL(url).hostname}catch{return'qr'}})();CCS.thumb=src.src||'';document.getElementById('cc-sth').src=CCS.thumb;document.getElementById('cc-sn').textContent=CCS.label;const pal=document.getElementById('cc-pal');pal.innerHTML='';colors.forEach(c=>{const d=document.createElement('div');d.className='sw';d.style.background=`rgb(${c.r},${c.g},${c.b})`;pal.appendChild(d)});document.getElementById('cc-srcinfo').style.display='flex';const ecc=document.getElementById('cc-ecc').value;CCS.versions=[];const car=document.getElementById('cc-carousel');car.innerHTML='';ccStatus(t('st.building'));let tuned=false;for(let i=0;i<CC_VERSIONS.length;i++){const ver=CC_VERSIONS[i];let qr;try{qr=qrcode(ver,ecc);qr.addData(url);qr.make()}catch{try{qr=qrcode(0,ecc);qr.addData(url);qr.make()}catch{continue}}const sz=qr.getModuleCount(),grid=ccImgToGrid(src,sz);if(!tuned){ccAutoTune(grid,sz);tuned=true}const tc=document.createElement('canvas');tc.width=tc.height=128;ccRenderToCanvas(tc,qr,sz,grid,128);CCS.versions.push({qr,sz,grid,ver});const card=document.createElement('div');card.className='vcard'+(i===CCS.selectedIdx?' sel':'');card.innerHTML=`<div class="vthumb"></div><div class="vlabel">v${ver} · ${sz}×${sz}</div>`;card.querySelector('.vthumb').appendChild(tc);card.onclick=()=>ccSelectVersion(i);car.appendChild(card)}CCS.selectedIdx=Math.min(CCS.selectedIdx,CCS.versions.length-1);ccRenderSelected();document.getElementById('cc-preview-area').classList.add('on');ccStatus('')}catch(e){ccStatus(t('st.error',{e:e}),true)}finally{btn.disabled=false;btn.textContent=t('cc.generate')}}
 function ccSelectVersion(i){CCS.selectedIdx=i;document.querySelectorAll('#cc-carousel .vcard').forEach((c,j)=>c.classList.toggle('sel',j===i));ccRenderSelected()}
 function ccRenderSelected(){const v=CCS.versions[CCS.selectedIdx];if(!v)return;const o=+document.getElementById('cc-osz').value,c=document.getElementById('cc-main');c.width=c.height=o;ccRenderToCanvas(c,v.qr,v.sz,v.grid,o)}
 ['cc-dmn','cc-dmx','cc-gs','cc-gt'].forEach(id=>{const vm={'cc-dmn':'cc-vdmn','cc-dmx':'cc-vdmx','cc-gs':'cc-vgs','cc-gt':'cc-vgt'};document.getElementById(id).oninput=()=>{document.getElementById(vm[id]).textContent=document.getElementById(id).value+'%';ccRenderSelected()}});
@@ -647,12 +947,12 @@ scanDz.ondragleave=()=>scanDz.classList.remove('ov');
 scanDz.ondrop=e=>{e.preventDefault();scanDz.classList.remove('ov');scanFile(e.dataTransfer.files[0])};
 scanFi.onchange=e=>scanFile(e.target.files[0]);
 
-function scanFile(f){if(!f||!f.type.startsWith('image/'))return;if(typeof jsQR==='undefined'){document.getElementById('scan-dp').innerHTML='<span style="color:var(--warn)">Scanner loading…try again in a moment</span>';return}const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const c=document.getElementById('scan-canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);const id=ctx.getImageData(0,0,c.width,c.height);const code=jsQR(id.data,c.width,c.height,{inversionAttempts:'attemptBoth'});if(code){showScanResult(code.data);document.getElementById('scan-dp').innerHTML=`<img class="preview" src="${r.result}" style="max-width:80px;max-height:80px"><br><span class="fname" style="color:var(--ok)">✓ QR code found</span>`}else document.getElementById('scan-dp').innerHTML=`<span style="color:var(--err)">✕ No QR code detected</span><br><span class="fname">Try a clearer image</span>`};img.src=r.result};r.readAsDataURL(f)}
+function scanFile(f){if(!f||!f.type.startsWith('image/'))return;if(typeof jsQR==='undefined'){document.getElementById('scan-dp').innerHTML='<span style="color:var(--warn)">'+t('st.scannerLoading')+'</span>';return}const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const c=document.getElementById('scan-canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);const id=ctx.getImageData(0,0,c.width,c.height);const code=jsQR(id.data,c.width,c.height,{inversionAttempts:'attemptBoth'});if(code){showScanResult(code.data);document.getElementById('scan-dp').innerHTML=`<img class="preview" src="${r.result}" style="max-width:80px;max-height:80px"><br><span class="fname" style="color:var(--ok)">${t('st.qrFound')}</span>`}else document.getElementById('scan-dp').innerHTML=`<span style="color:var(--err)">${t('st.noQr')}</span><br><span class="fname">${t('st.tryClearer')}</span>`};img.src=r.result};r.readAsDataURL(f)}
 
 // Camera
-async function toggleCamera(){if(camRunning){stopCamera();return}try{camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}}});document.getElementById('cam-video').srcObject=camStream;document.getElementById('cam-wrap').style.display='block';document.getElementById('cam-btn').textContent='⏹ Close Camera';camRunning=true;requestAnimationFrame(scanFrame)}catch(e){alert(e.name==='NotAllowedError'?'Camera permission denied. QR Studio needs camera access only to scan QR codes — no video is recorded or transmitted.':'Could not access camera: '+e.message)}}
-function stopCamera(){camRunning=false;if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}document.getElementById('cam-wrap').style.display='none';document.getElementById('cam-btn').textContent='📷 Open Camera'}
-function scanFrame(){if(!camRunning||typeof jsQR==='undefined')return;const v=document.getElementById('cam-video');if(v.readyState!==v.HAVE_ENOUGH_DATA){requestAnimationFrame(scanFrame);return}const c=document.getElementById('cam-canvas');c.width=v.videoWidth;c.height=v.videoHeight;const ctx=c.getContext('2d');ctx.drawImage(v,0,0);const code=jsQR(ctx.getImageData(0,0,c.width,c.height).data,c.width,c.height,{inversionAttempts:'attemptBoth'});if(code){document.getElementById('cam-status').textContent='✓ Found!';document.getElementById('cam-status').style.background='rgba(34,197,94,.85)';showScanResult(code.data);setTimeout(()=>{if(camRunning){document.getElementById('cam-status').textContent='Scanning…';document.getElementById('cam-status').style.background='rgba(0,0,0,.7)';requestAnimationFrame(scanFrame)}},2000)}else requestAnimationFrame(scanFrame)}
+async function toggleCamera(){if(camRunning){stopCamera();return}try{camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}}});document.getElementById('cam-video').srcObject=camStream;document.getElementById('cam-wrap').style.display='block';document.getElementById('cam-btn').textContent=t('scan.closeCam');camRunning=true;requestAnimationFrame(scanFrame)}catch(e){alert(e.name==='NotAllowedError'?t('cam.denied'):t('cam.fail',{e:e.message}))}}
+function stopCamera(){camRunning=false;if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}document.getElementById('cam-wrap').style.display='none';document.getElementById('cam-btn').textContent=t('scan.openCam')}
+function scanFrame(){if(!camRunning||typeof jsQR==='undefined')return;const v=document.getElementById('cam-video');if(v.readyState!==v.HAVE_ENOUGH_DATA){requestAnimationFrame(scanFrame);return}const c=document.getElementById('cam-canvas');c.width=v.videoWidth;c.height=v.videoHeight;const ctx=c.getContext('2d');ctx.drawImage(v,0,0);const code=jsQR(ctx.getImageData(0,0,c.width,c.height).data,c.width,c.height,{inversionAttempts:'attemptBoth'});if(code){document.getElementById('cam-status').textContent=t('scan.found');document.getElementById('cam-status').style.background='rgba(34,197,94,.85)';showScanResult(code.data);setTimeout(()=>{if(camRunning){document.getElementById('cam-status').textContent=t('scan.scanning');document.getElementById('cam-status').style.background='rgba(0,0,0,.7)';requestAnimationFrame(scanFrame)}},2000)}else requestAnimationFrame(scanFrame)}
 
 // ═══════ EMV / DUITNOW DECODER ═══════
 function parseEMV(s){const r={};let i=0;while(i<s.length-4){const id=s.substr(i,2),len=parseInt(s.substr(i+2,2),10);if(isNaN(len)||i+4+len>s.length)break;const val=s.substr(i+4,len);r[id]=val;i+=4+len}return r}
@@ -728,36 +1028,36 @@ function parseDuitNow(emv,raw){
   let addlHtml='';
   if(emv['62']){
     const addl=parseEMVNested(emv['62']);
-    const addlFields={'01':'Bill Number','02':'Mobile Number','03':'Store Label','04':'Loyalty Number','05':'Reference Label','06':'Customer Label','07':'Terminal Label','08':'Purpose of Transaction','09':'Consumer Data Request','10':'Merchant Tax ID','90':'RRN (Ref-1)','91':'RRN2 (Ref-2)','92':'Geo Coordinates'};
+    const addlFields={'01':t('dn.fBill'),'02':t('dn.fMobile'),'03':t('dn.fStore'),'04':t('dn.fLoyalty'),'05':t('dn.fRef'),'06':t('dn.fCustomer'),'07':t('dn.fTerminal'),'08':t('dn.fPurpose'),'09':t('dn.fCdr'),'10':t('dn.fTaxId'),'90':t('dn.fRrn'),'91':t('dn.fRrn2'),'92':t('dn.fGeo')};
     for(const[k,label]of Object.entries(addlFields)){if(addl[k])addlHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">${label}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${addl[k]}</span></div>`}
     // Decode Merchant Channel (ID 11) per PayNet spec Tables 3-5
     if(addl['11']){
       const ch=addl['11'];
-      const mediaMap={'0':'Print — Sticker','1':'Print — Bill/Invoice','2':'Print — Magazine/Poster','3':'Print — Others','4':'Screen — POS/POI','5':'Screen — Website','6':'Screen — App','7':'Screen — Others'};
-      const locMap={'0':'At merchant premises','1':'Not at merchant premises','2':'Remote commerce','3':'Others'};
-      const presMap={'0':'Attended POS','1':'Unattended','2':'Semi-attended (self-checkout)','3':'Others'};
+      const mediaMap={'0':t('dn.mPrint0'),'1':t('dn.mPrint1'),'2':t('dn.mPrint2'),'3':t('dn.mPrint3'),'4':t('dn.mScreen4'),'5':t('dn.mScreen5'),'6':t('dn.mScreen6'),'7':t('dn.mScreen7')};
+      const locMap={'0':t('dn.lAt'),'1':t('dn.lNot'),'2':t('dn.lRemote'),'3':t('dn.lOther')};
+      const presMap={'0':t('dn.pAttend'),'1':t('dn.pUnattend'),'2':t('dn.pSemi'),'3':t('dn.pOther')};
       let chDesc=[];
       if(ch[0]&&mediaMap[ch[0]])chDesc.push(mediaMap[ch[0]]);
       if(ch[1]&&locMap[ch[1]])chDesc.push(locMap[ch[1]]);
       if(ch[2]&&presMap[ch[2]])chDesc.push(presMap[ch[2]]);
-      addlHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">Merchant Channel</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${ch} — ${chDesc.join(' · ')||'Unknown'}</span></div>`;
+      addlHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">${t('dn.channel')}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${ch} — ${chDesc.join(' · ')||t('dn.unknown')}</span></div>`;
     }
   }
 
   // Data Integrity Check (ID 82)
   const dataHash=emv['82'];
   let hashHtml='';
-  if(dataHash){hashHtml=`<div style="margin-top:8px;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Data Integrity</div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">SHA-256 Hash</span><span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;word-break:break-all;max-width:60%;text-align:right;color:var(--ok)">🔒 ${dataHash}</span></div>`}
+  if(dataHash){hashHtml=`<div style="margin-top:8px;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">${t('dn.integrity')}</div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">${t('dn.sha')}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;word-break:break-all;max-width:60%;text-align:right;color:var(--ok)">🔒 ${dataHash}</span></div>`}
 
   // Parse language template (ID 64)
   let langHtml='';
   if(emv['64']){
     const lang=parseEMVNested(emv['64']);
     if(lang['00']||lang['01']||lang['02']){
-      langHtml='<div style="margin-top:8px;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Alternate Language</div>';
-      if(lang['00'])langHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">Language</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${lang['00']}</span></div>`;
-      if(lang['01'])langHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">Merchant Name</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${lang['01']}</span></div>`;
-      if(lang['02'])langHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">Merchant City</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${lang['02']}</span></div>`;
+      langHtml='<div style="margin-top:8px;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">'+t('dn.altLang')+'</div>';
+      if(lang['00'])langHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">${t('dn.lang')}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${lang['00']}</span></div>`;
+      if(lang['01'])langHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">${t('dn.rowMerchant')}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${lang['01']}</span></div>`;
+      if(lang['02'])langHtml+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">${t('dn.mCity')}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${lang['02']}</span></div>`;
     }
   }
 
@@ -768,31 +1068,31 @@ function parseDuitNow(emv,raw){
   const row=(label,val,raw,highlight)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3);flex-shrink:0">${label}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:right;${highlight?'color:var(--accent);font-weight:600':''}">${val}${raw?` <span style="opacity:.45;font-size:.68rem">(${raw})</span>`:''}</span></div>`;
 
   let html='';
-  html+=row('QR Type',`<span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:.72rem;font-weight:600;background:${isStatic?'var(--ok)':'var(--warn)'};color:#fff">${isStatic?'STATIC — reusable':'DYNAMIC — one-time'}</span>`,initMethod);
+  html+=row(t('dn.rowType'),`<span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:.72rem;font-weight:600;background:${isStatic?'var(--ok)':'var(--warn)'};color:#fff">${isStatic?t('dn.rowStatic'):t('dn.rowDynamic')}</span>`,initMethod);
   const isJomPAY=acquirer==='898989';
-  html+=row('Payment Network',isJomPAY?'JomPAY 🇲🇾':'DuitNow 🇲🇾','A0000006150001');
-  html+=row('Wallet / Bank',wallet,null,true);
-  html+=row('Merchant Name',name||'—',null,true);
-  html+=row('City',city||'—');
-  if(postal)html+=row('Postal Code',postal);
-  html+=row('Country',country||'—');
-  html+=row('Currency',currLabel,currency);
-  if(amount)html+=row('Amount','RM '+parseFloat(amount).toFixed(2),amount,true);
-  else html+=row('Amount','<span style="color:var(--text3);font-style:italic">Customer enters amount</span>');
-  if(tipIndicator==='01')html+=row('Tip','<span style="color:var(--text3);font-style:italic">Consumer prompted for tip</span>','ID 55=01');
-  if(tipIndicator==='02'&&convFeeFixed)html+=row('Convenience Fee','RM '+parseFloat(convFeeFixed).toFixed(2),'ID 56',true);
-  if(tipIndicator==='03'&&convFeePct)html+=row('Convenience Fee',convFeePct+'%','ID 57');
-  html+=row('Category',mccLabel,mcc);
-  html+=row(isJomPAY?'Biller Code':'Account / QR ID',`<span style="font-size:.72rem;word-break:break-all">${account}</span>`);
-  html+=row('Acquirer',`${wallet!=='Unknown'?wallet+' <span style="opacity:.5;font-size:.68rem">('+acquirer+')</span>':acquirer}`,null,true);
-  if(descriptor)html+=row('Merchant Descriptor',descriptor,'ID 26.03');
-  if(merchantMobile)html+=row('Merchant Mobile',merchantMobile,'ID 26.04');
-  if(ref&&!descriptor)html+=row('Descriptor / Ref',ref,'ID 26.03');
-  html+=row('CRC Checksum',`<span style="color:${crc.valid?'var(--ok)':'var(--err)'};font-weight:600">${crc.given} ${crc.valid?'✓ Valid':'✕ Invalid (expected '+crc.calc+')'}</span>`);
-  if(addlHtml)html+='<div style="margin-top:8px;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Additional Data</div>'+addlHtml;
+  html+=row(t('dn.rowNetwork'),isJomPAY?'JomPAY 🇲🇾':'DuitNow 🇲🇾','A0000006150001');
+  html+=row(t('dn.rowWallet'),wallet,null,true);
+  html+=row(t('dn.rowMerchant'),name||'—',null,true);
+  html+=row(t('dn.rowCity'),city||'—');
+  if(postal)html+=row(t('dn.rowPostal'),postal);
+  html+=row(t('dn.rowCountry'),country||'—');
+  html+=row(t('dn.rowCurrency'),currLabel,currency);
+  if(amount)html+=row(t('dn.rowAmount'),'RM '+parseFloat(amount).toFixed(2),amount,true);
+  else html+=row(t('dn.rowAmount'),'<span style="color:var(--text3);font-style:italic">'+t('dn.custAmount')+'</span>');
+  if(tipIndicator==='01')html+=row(t('dn.rowTip'),'<span style="color:var(--text3);font-style:italic">'+t('dn.tipPrompt')+'</span>','ID 55=01');
+  if(tipIndicator==='02'&&convFeeFixed)html+=row(t('dn.rowFee'),'RM '+parseFloat(convFeeFixed).toFixed(2),'ID 56',true);
+  if(tipIndicator==='03'&&convFeePct)html+=row(t('dn.rowFee'),convFeePct+'%','ID 57');
+  html+=row(t('dn.rowCat'),mccLabel,mcc);
+  html+=row(isJomPAY?t('dn.rowBiller'):t('dn.rowAcct'),`<span style="font-size:.72rem;word-break:break-all">${account}</span>`);
+  html+=row(t('dn.rowAcquirer'),`${wallet!=='Unknown'?wallet+' <span style="opacity:.5;font-size:.68rem">('+acquirer+')</span>':acquirer}`,null,true);
+  if(descriptor)html+=row(t('dn.rowDesc'),descriptor,'ID 26.03');
+  if(merchantMobile)html+=row(t('dn.rowMobile'),merchantMobile,'ID 26.04');
+  if(ref&&!descriptor)html+=row(t('dn.rowRef'),ref,'ID 26.03');
+  html+=row(t('dn.rowCrc'),`<span style="color:${crc.valid?'var(--ok)':'var(--err)'};font-weight:600">${crc.given} ${crc.valid?t('dn.crcOk'):t('dn.crcBad',{calc:crc.calc})}</span>`);
+  if(addlHtml)html+='<div style="margin-top:8px;font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">'+t('dn.addl')+'</div>'+addlHtml;
   if(langHtml)html+=langHtml;
   if(hashHtml)html+=hashHtml;
-  html+=`<button class="gen-btn" style="margin-top:16px" onclick="document.getElementById('dn-edit-name').value=window._dnName||'';document.getElementById('dn-edit-bank').value=window._dnWallet||'';regenDuitNow();document.getElementById('duitnow-regen').scrollIntoView({behavior:'smooth',block:'nearest'})">🔄 Regenerate Clean QR Code</button>`;
+  html+=`<button class="gen-btn" style="margin-top:16px" onclick="document.getElementById('dn-edit-name').value=window._dnName||'';document.getElementById('dn-edit-bank').value=window._dnWallet||'';regenDuitNow();document.getElementById('duitnow-regen').scrollIntoView({behavior:'smooth',block:'nearest'})">${t('dn.regenBtn')}</button>`;
 
   // Store for regen
   window._dnRaw=raw;window._dnName=name;window._dnWallet=wallet;
@@ -800,7 +1100,7 @@ function parseDuitNow(emv,raw){
   return html;
 }
 
-function showScanResult(data){scanResultData=data;document.getElementById('scan-result').style.display='block';document.getElementById('scan-content').textContent=data;const type=detectQRType(data);document.getElementById('scan-type-badge').textContent=type.label;
+function showScanResult(data,noScroll){scanResultData=data;document.getElementById('scan-result').style.display='block';document.getElementById('scan-content').textContent=data;const type=detectQRType(data);document.getElementById('scan-type-badge').textContent=type.label;
 
 // DuitNow/EMV breakdown
 const dnCard=document.getElementById('duitnow-card');
@@ -813,31 +1113,31 @@ if(type.type==='emvpay'){
   }else dnCard.style.display='none';
 }else dnCard.style.display='none';
 
-const ob=document.getElementById('scan-open-btn');if(type.type==='url'){ob.style.display='inline-flex';ob.textContent='🔗 Open Link';ob.onclick=()=>window.open(data,'_blank')}else if(type.type==='phone'){ob.style.display='inline-flex';ob.textContent='📞 Call';ob.onclick=()=>window.open(data,'_blank')}else if(type.type==='email'){ob.style.display='inline-flex';ob.textContent='✉️ Email';ob.onclick=()=>window.open(data,'_blank')}else if(type.type==='whatsapp'){ob.style.display='inline-flex';ob.textContent='💬 WhatsApp';ob.onclick=()=>window.open(data,'_blank')}else ob.style.display='none';
+const ob=document.getElementById('scan-open-btn');if(type.type==='url'){ob.style.display='inline-flex';ob.textContent=t('scan.openLink');ob.onclick=()=>window.open(data,'_blank')}else if(type.type==='phone'){ob.style.display='inline-flex';ob.textContent=t('scan.call');ob.onclick=()=>window.open(data,'_blank')}else if(type.type==='email'){ob.style.display='inline-flex';ob.textContent=t('scan.email');ob.onclick=()=>window.open(data,'_blank')}else if(type.type==='whatsapp'){ob.style.display='inline-flex';ob.textContent=t('scan.whatsapp');ob.onclick=()=>window.open(data,'_blank')}else ob.style.display='none';
 const safety=analyzeQRSafety(data,type),el=document.getElementById('scan-safety'),card=document.getElementById('scan-safety-card');
-if(safety.level==='safe'){card.style.borderColor='var(--ok)';el.innerHTML=`<div style="color:var(--ok);font-weight:600;font-size:.9rem">✅ Looks Safe</div><div style="font-size:.78rem;color:var(--text2);margin-top:6px">${safety.detail}</div>`}
-else if(safety.level==='warning'){card.style.borderColor='var(--warn)';el.innerHTML=`<div style="color:var(--warn);font-weight:600;font-size:.9rem">⚠️ Caution</div><div style="font-size:.78rem;color:var(--text2);margin-top:6px">${safety.detail}</div>`}
-else{card.style.borderColor='var(--err)';el.innerHTML=`<div style="color:var(--err);font-weight:600;font-size:.9rem">🚨 Suspicious — Be Careful</div><div style="font-size:.78rem;color:var(--text2);margin-top:6px">${safety.detail}</div>`}
-document.getElementById('scan-result').scrollIntoView({behavior:'smooth',block:'nearest'})}
+if(safety.level==='safe'){card.style.borderColor='var(--ok)';el.innerHTML=`<div style="color:var(--ok);font-weight:600;font-size:.9rem">${t('safety.safe')}</div><div style="font-size:.78rem;color:var(--text2);margin-top:6px">${safety.detail}</div>`}
+else if(safety.level==='warning'){card.style.borderColor='var(--warn)';el.innerHTML=`<div style="color:var(--warn);font-weight:600;font-size:.9rem">${t('safety.warn')}</div><div style="font-size:.78rem;color:var(--text2);margin-top:6px">${safety.detail}</div>`}
+else{card.style.borderColor='var(--err)';el.innerHTML=`<div style="color:var(--err);font-weight:600;font-size:.9rem">${t('safety.danger')}</div><div style="font-size:.78rem;color:var(--text2);margin-top:6px">${safety.detail}</div>`}
+if(!noScroll)document.getElementById('scan-result').scrollIntoView({behavior:'smooth',block:'nearest'})}
 
-function detectQRType(d){if(/^https?:\/\/wa\.me\//i.test(d))return{type:'whatsapp',label:'WhatsApp'};if(/^https?:\/\//i.test(d))return{type:'url',label:'URL'};if(/^WIFI:/i.test(d))return{type:'wifi',label:'WiFi'};if(/^mailto:/i.test(d))return{type:'email',label:'Email'};if(/^tel:/i.test(d))return{type:'phone',label:'Phone'};if(/^sms:/i.test(d))return{type:'sms',label:'SMS'};if(/^geo:/i.test(d))return{type:'geo',label:'Location'};if(/^BEGIN:VCARD/i.test(d))return{type:'vcard',label:'vCard'};if(/^BEGIN:VCALENDAR/i.test(d))return{type:'calendar',label:'Calendar'};if(/^bitcoin:/i.test(d))return{type:'crypto',label:'Bitcoin'};if(/^ethereum:/i.test(d))return{type:'crypto',label:'Ethereum'};if(/^00020101/i.test(d)||/^00020201/i.test(d)){let isDN=false,isJP=false;try{const emv=parseEMV(d);for(let id=26;id<=51;id++){const k=id.toString().padStart(2,'0');if(emv[k]){const n=parseEMVNested(emv[k]);if(n['00']==='A0000006150001'){isDN=true;if(n['01']==='898989')isJP=true}}}}catch{}return{type:'emvpay',label:isJP?'JomPAY 🇲🇾':isDN?'DuitNow 🇲🇾':'EMV Payment'}};return{type:'text',label:'Text'}}
+function detectQRType(d){if(/^https?:\/\/wa\.me\//i.test(d))return{type:'whatsapp',label:t('detect.whatsapp')};if(/^https?:\/\//i.test(d))return{type:'url',label:t('detect.url')};if(/^WIFI:/i.test(d))return{type:'wifi',label:t('detect.wifi')};if(/^mailto:/i.test(d))return{type:'email',label:t('detect.email')};if(/^tel:/i.test(d))return{type:'phone',label:t('detect.phone')};if(/^sms:/i.test(d))return{type:'sms',label:t('detect.sms')};if(/^geo:/i.test(d))return{type:'geo',label:t('detect.geo')};if(/^BEGIN:VCARD/i.test(d))return{type:'vcard',label:t('detect.vcard')};if(/^BEGIN:VCALENDAR/i.test(d))return{type:'calendar',label:t('detect.calendar')};if(/^bitcoin:/i.test(d))return{type:'crypto',label:t('detect.bitcoin')};if(/^ethereum:/i.test(d))return{type:'crypto',label:t('detect.ethereum')};if(/^00020101/i.test(d)||/^00020201/i.test(d)){let isDN=false,isJP=false;try{const emv=parseEMV(d);for(let id=26;id<=51;id++){const k=id.toString().padStart(2,'0');if(emv[k]){const n=parseEMVNested(emv[k]);if(n['00']==='A0000006150001'){isDN=true;if(n['01']==='898989')isJP=true}}}}catch{}return{type:'emvpay',label:isJP?'JomPAY 🇲🇾':isDN?'DuitNow 🇲🇾':t('detect.emv')}};return{type:'text',label:t('detect.text')}}
 
-function analyzeQRSafety(data,type){const w=[],d=[];if(type.type==='url'){try{const u=new URL(data);if(u.protocol==='http:')w.push('Uses HTTP (unencrypted).');if(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(u.hostname))d.push('Raw IP address URL — common in phishing.');if(data.length>500)w.push('Unusually long URL.');const badTLDs=['.zip','.mov','.tk','.ml','.ga','.cf','.gq','.buzz','.top','.xyz'];if(badTLDs.some(t=>u.hostname.endsWith(t)))w.push(`Suspicious domain extension.`);const shorts=['bit.ly','tinyurl.com','t.co','goo.gl','ow.ly','is.gd','rb.gy','short.io','cutt.ly'];if(shorts.some(s=>u.hostname===s||u.hostname==='www.'+s))w.push('Shortened URL — real destination hidden.');if(u.protocol==='data:')d.push('Data URI — can execute code. Do NOT open.');if(u.protocol==='javascript:')d.push('JavaScript injection. Do NOT open.');if(/[^\x00-\x7F]/.test(u.hostname))d.push('Non-ASCII domain (homograph attack).');if(u.username||u.password)d.push('Embedded credentials — likely phishing.');if(data.includes('@')&&type.type==='url')w.push('URL contains @ — may redirect elsewhere.');if(d.length===0&&w.length===0)return{level:'safe',detail:`Domain: <strong>${u.hostname}</strong> · ${u.protocol==='https:'?'HTTPS encrypted':'HTTP unencrypted'} · No threats detected. Verify the domain before entering personal info.`}}catch{}}
-if(type.type==='wifi'){if(/P:;/.test(data)||/T:nopass/i.test(data)||/T:;/.test(data))w.push('Open WiFi — no password.');else return{level:'safe',detail:'Password-protected WiFi. Verify the network name before connecting.'}}
-if(type.type==='vcard')return{level:'safe',detail:'Contact card. Review details before saving.'};
-if(type.type==='calendar')return{level:'safe',detail:'Calendar event. Review before adding.'};
-if(type.type==='phone')return{level:'safe',detail:'Phone number. Verify before calling — premium numbers can charge high fees.'};
-if(type.type==='sms')w.push('SMS can pre-fill messages to premium numbers. Review before sending.');
-if(type.type==='email')return{level:'safe',detail:'Email link. Review recipient and content before sending.'};
-if(type.type==='emvpay'){const emv=parseEMV(data);let isDuitNow=false;for(let id=26;id<=51;id++){const k=id.toString().padStart(2,'0');if(emv[k]){const n=parseEMVNested(emv[k]);if(n['00']==='A0000006150001')isDuitNow=true}}if(isDuitNow){const name=emv['59']||'Unknown';return{level:'warning',detail:`DuitNow payment QR detected. Merchant: <strong>${name}</strong>. Verify this matches the person/business you intend to pay. Check the full breakdown below. Always confirm the amount in your banking app before approving.`}}return{level:'warning',detail:'Payment QR code detected. Only use from trusted merchants. Verify amount in your banking app.'}}
-if(type.type==='crypto')return{level:'warning',detail:'Crypto address. Double-check every character — transactions are irreversible.'};
-if(type.type==='text'&&!d.length&&!w.length)return{level:'safe',detail:'Plain text. No links or executable content.'};
+function analyzeQRSafety(data,type){const w=[],d=[];if(type.type==='url'){try{const u=new URL(data);if(u.protocol==='http:')w.push(t('safety.httpWarn'));if(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(u.hostname))d.push(t('safety.rawIp'));if(data.length>500)w.push(t('safety.longUrl'));const badTLDs=['.zip','.mov','.tk','.ml','.ga','.cf','.gq','.buzz','.top','.xyz'];if(badTLDs.some(t=>u.hostname.endsWith(t)))w.push(t('safety.badTld'));const shorts=['bit.ly','tinyurl.com','t.co','goo.gl','ow.ly','is.gd','rb.gy','short.io','cutt.ly'];if(shorts.some(s=>u.hostname===s||u.hostname==='www.'+s))w.push(t('safety.short'));if(u.protocol==='data:')d.push(t('safety.dataUri'));if(u.protocol==='javascript:')d.push(t('safety.js'));if(/[^\x00-\x7F]/.test(u.hostname))d.push(t('safety.homograph'));if(u.username||u.password)d.push(t('safety.creds'));if(data.includes('@')&&type.type==='url')w.push(t('safety.at'));if(d.length===0&&w.length===0)return{level:'safe',detail:t('safety.domainOk',{host:u.hostname,proto:t(u.protocol==='https:'?'safety.https':'safety.http')})}}catch{}}
+if(type.type==='wifi'){if(/P:;/.test(data)||/T:nopass/i.test(data)||/T:;/.test(data))w.push(t('safety.openWifi'));else return{level:'safe',detail:t('safety.wifiOk')}}
+if(type.type==='vcard')return{level:'safe',detail:t('safety.vcard')};
+if(type.type==='calendar')return{level:'safe',detail:t('safety.calendar')};
+if(type.type==='phone')return{level:'safe',detail:t('safety.phone')};
+if(type.type==='sms')w.push(t('safety.sms'));
+if(type.type==='email')return{level:'safe',detail:t('safety.email')};
+if(type.type==='emvpay'){const emv=parseEMV(data);let isDuitNow=false;for(let id=26;id<=51;id++){const k=id.toString().padStart(2,'0');if(emv[k]){const n=parseEMVNested(emv[k]);if(n['00']==='A0000006150001')isDuitNow=true}}if(isDuitNow){const name=emv['59']||'Unknown';return{level:'warning',detail:t('safety.dnPay',{name:name})}}return{level:'warning',detail:t('safety.pay')}}
+if(type.type==='crypto')return{level:'warning',detail:t('safety.crypto')};
+if(type.type==='text'&&!d.length&&!w.length)return{level:'safe',detail:t('safety.plain')};
 if(d.length)return{level:'danger',detail:d.concat(w).map(x=>'• '+x).join('<br>')};
 if(w.length)return{level:'warning',detail:w.map(x=>'• '+x).join('<br>')};
-return{level:'safe',detail:'No threats detected.'}}
+return{level:'safe',detail:t('safety.noThreats')}}
 
-function copyScanResult(){navigator.clipboard.writeText(scanResultData).then(()=>{const b=document.querySelector('#scan-result .dl-btn');b.textContent='✓ Copied!';setTimeout(()=>b.textContent='📋 Copy',1500)})}
-function clearScan(){document.getElementById('scan-result').style.display='none';document.getElementById('duitnow-card').style.display='none';document.getElementById('duitnow-regen').style.display='none';document.getElementById('scan-dp').textContent='Drop image, tap to browse, or paste (Ctrl+V)';document.getElementById('scan-safety-card').style.borderColor='var(--border)';scanResultData='';scanFi.value=''}
+function copyScanResult(){navigator.clipboard.writeText(scanResultData).then(()=>{const b=document.querySelector('#scan-result .dl-btn');b.textContent=t('scan.copied');setTimeout(()=>b.textContent=t('scan.copy'),1500)})}
+function clearScan(){document.getElementById('scan-result').style.display='none';document.getElementById('duitnow-card').style.display='none';document.getElementById('duitnow-regen').style.display='none';document.getElementById('scan-dp').textContent=t('scan.drop');document.getElementById('scan-safety-card').style.borderColor='var(--border)';scanResultData='';scanFi.value=''}
 
 // ═══════ DUITNOW REGEN (TukarQR) ═══════
 let dnTargetW=600;
@@ -894,7 +1194,7 @@ function regenDuitNow(){
   ctx.fillText('MALAYSIA NATIONAL QR',totalW/2,bannerY+Math.round(12*sc));
   // Show dimensions
   const cmW=(totalW/300*2.54).toFixed(1),cmH=(totalH/300*2.54).toFixed(1);
-  document.getElementById('dn-dimensions').textContent=`${totalW} × ${totalH}px · ${cmW} × ${cmH}cm at 300dpi`;
+  document.getElementById('dn-dimensions').textContent=`${totalW} × ${totalH}px · ${cmW} × ${cmH}cm ${t('dn.at300')}`;
   document.getElementById('duitnow-regen').style.display='block';
 }
 function dlDuitNowPNG(){const c=document.getElementById('duitnow-canvas');c.toBlob(b=>{const a=document.createElement('a');a.download=`duitnow-${(window._dnName||'qr').replace(/\s+/g,'-').toLowerCase()}.png`;a.href=URL.createObjectURL(b);document.body.appendChild(a);a.click();a.remove()},'image/png')}
