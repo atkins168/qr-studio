@@ -28,9 +28,9 @@ Most QR generators are bloated SaaS tools that paywall basic features, plaster w
 
 ---
 
-![QR_Studio_01](.\images\QR_Studio_01.png)
+![QR_Studio_01](./images/QR_Studio_01.png)
 
-![QR_Studio_02](.\images\QR_Studio_02.png)
+![QR_Studio_02](./images/QR_Studio_02.png)
 
 ---
 
